@@ -3,6 +3,7 @@ import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
+  UnorderedListOutlined,
   DatabaseOutlined,
   DesktopOutlined,
   DashboardOutlined,
@@ -14,6 +15,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Frontend from "./Frontend";
 import { Backend } from "./Backend";
 import Bewertung from "./Bewertung";
+import Startseite from "./Startseite";
 import Help from "./Help";
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -24,7 +26,7 @@ export function Homepage() {
     Type: "null", // Hier können Sie einen Standardwert festlegen
   });
   const [transferFilteredData, setTransferFilteredData] = useState();
-  const [backendValues, setBackenValues] = useState("");
+  const [backendValues, setBackenValues] = useState({});
   const [frontendValues, setFrontendValues] = useState("");
   function handleBackend(newValue) {
     setBackenValues(newValue);
@@ -64,7 +66,7 @@ export function Homepage() {
           items={[
             {
               key: "/",
-              label: "Anforderungen",
+              label: "Startseite",
               icon: React.createElement(DashboardOutlined),
             },
             {
@@ -77,6 +79,11 @@ export function Homepage() {
               label: "Backend",
               icon: React.createElement(DatabaseOutlined),
             },
+            {
+              key: "/anforderungen",
+              label: "Anforderungen",
+              icon: React.createElement(UnorderedListOutlined),
+            },
           ]}
         />
       </Sider>
@@ -88,7 +95,7 @@ export function Homepage() {
         >
           <Routes>
             <Route
-              path="/"
+              path="/anforderungen"
               element={
                 <Anforderungen
                   anforderungsFilter={anforderungsFilter}
@@ -107,6 +114,7 @@ export function Homepage() {
               }
             />
             <Route path="/hilfe" element={<Help />} />
+            <Route path="/" element={<Startseite />} />
           </Routes>
         </Content>
         <Content
@@ -122,7 +130,7 @@ export function Homepage() {
             }}
           >
             <h2>Mögliche Erweiterungen</h2>
-            <p>{backendValues}</p>
+
             <div
               style={{
                 maxWidth: "1200",
@@ -131,6 +139,7 @@ export function Homepage() {
               <OverviewTable
                 setTransferFilteredData={setTransferFilteredData}
                 anforderungsFilter={anforderungsFilter}
+                backendValues={backendValues}
               />
             </div>
             <h2>Bewertung</h2>
