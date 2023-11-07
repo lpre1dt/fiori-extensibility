@@ -12,22 +12,24 @@ import { Layout, Menu, theme } from "antd";
 import { OverviewTable } from "./OverviewTable";
 import { Anforderungen } from "./Anforderungen";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import Frontend from "./Frontend";
+import { Frontend } from "./Frontend";
 import { Backend } from "./Backend";
 import Bewertung from "./Bewertung";
 import Startseite from "./Startseite";
 import Help from "./Help";
+import { findDOMNode } from "react-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 export function Homepage() {
   const navigate = useNavigate();
 
-  const [anforderungsFilter, setAnforderungsfilter] = useState({
-    Type: "null", // Hier können Sie einen Standardwert festlegen
-  });
+  const [anforderungsFilter, setAnforderungsfilter] = useState();
   const [transferFilteredData, setTransferFilteredData] = useState();
   const [backendValues, setBackenValues] = useState({});
   const [frontendValues, setFrontendValues] = useState("");
+  const [descriptionValues, setDescriptionValues] = useState("");
+  const [showTable, setShowTable] = useState(false);
+  const [showEvaluation, setShowEvaluation] = useState(false);
   function handleBackend(newValue) {
     setBackenValues(newValue);
   }
@@ -70,19 +72,20 @@ export function Homepage() {
               icon: React.createElement(DashboardOutlined),
             },
             {
-              key: "/frontend",
-              label: "Frontend",
+              key: "/beschreibung",
+              label: "Beschreibungsphase",
               icon: React.createElement(DesktopOutlined),
             },
-            {
-              key: "/backend",
-              label: "Backend",
-              icon: React.createElement(DatabaseOutlined),
-            },
+
             {
               key: "/anforderungen",
               label: "Anforderungen",
               icon: React.createElement(UnorderedListOutlined),
+            },
+            {
+              key: "/evaluation",
+              label: "Evaluationsphase",
+              icon: React.createElement(DatabaseOutlined),
             },
           ]}
         />
@@ -100,10 +103,20 @@ export function Homepage() {
                 <Anforderungen
                   anforderungsFilter={anforderungsFilter}
                   setAnforderungsfilter={setAnforderungsfilter}
+                  finished={showTable}
                 />
               }
             />
-            <Route path="/frontend" element={<Frontend />} />
+            <Route
+              path="/beschreibung"
+              element={
+                <Frontend
+                  setDescriptionValues={setDescriptionValues}
+                  descriptionValues={descriptionValues}
+                  setShowTable={setShowTable}
+                />
+              }
+            />
             <Route
               path="/backend"
               element={
@@ -112,6 +125,10 @@ export function Homepage() {
                   setBackendValues={setBackenValues}
                 />
               }
+            />
+            <Route
+              path="/evaluation"
+              element={<Bewertung showEvaluation={showEvaluation} />}
             />
             <Route path="/hilfe" element={<Help />} />
             <Route path="/" element={<Startseite />} />
@@ -129,21 +146,19 @@ export function Homepage() {
               background: "white",
             }}
           >
-            <h2>Mögliche Erweiterungen</h2>
-
             <div
               style={{
                 maxWidth: "1200",
               }}
             >
-              <OverviewTable
-                setTransferFilteredData={setTransferFilteredData}
-                anforderungsFilter={anforderungsFilter}
-                backendValues={backendValues}
-              />
+              <div>
+                <OverviewTable
+                  anforderungsFilter={anforderungsFilter}
+                  descriptionValues={descriptionValues}
+                  showTable={showTable}
+                />
+              </div>
             </div>
-            <h2>Bewertung</h2>
-            <Bewertung filteredData={transferFilteredData} />
           </div>
         </Content>
         <Footer

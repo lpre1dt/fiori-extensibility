@@ -1,85 +1,236 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Button } from "antd";
+import { Checkbox, Button, Slider } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { LockOutlined } from "@ant-design/icons";
 
-export function Anforderungen({ anforderungsFilter, setAnforderungsfilter }) {
-  const [localChecked, setLocalChecked] = useState(
-    anforderungsFilter.Action === "Extend with Controller"
-  );
+export function Anforderungen({
+  anforderungsFilter,
+  setAnforderungsfilter,
+  finished,
+}) {
+  const [workOnUI, setWorkOnUI] = useState(true);
+  const [workOnLogic, setWorkOnLogic] = useState(true); // [0, 10
+  const [workOnBackend, setWorkOnBackend] = useState(true);
+  const [uiComplexity, setUiComplexity] = useState(0); // [0, 10
+  const [logicComplexity, setLogicComplexity] = useState(0); // [0, 10
+  const [backendComplexity, setBackendComplexity] = useState(0); // [0, 10
   const navigate = useNavigate();
   const openHelp = () => {
     navigate("/hilfe");
   };
-  useEffect(() => {
-    // Überprüfen, ob der anforderungsFilter.Action geändert wurde
-    // und die lokale Checkbox entsprechend aktualisieren
-    setLocalChecked(anforderungsFilter.Type === "Ansicht Variante");
-  }, [anforderungsFilter.Type]);
-
-  const handleCheckboxChange = (e) => {
-    const isChecked = e.target.checked;
-    setLocalChecked(isChecked);
-
-    // Hier können Sie den anforderungsFilter basierend auf der Checkbox-Auswahl aktualisieren
-    const updatedFilter = {
-      Type: isChecked ? "Ansicht Variante" : "null",
-    };
-    setAnforderungsfilter(updatedFilter);
+  const handleUiComplexity = (value) => {
+    console.log(value);
+    setUiComplexity(value);
   };
-  return (
-    <div
-      style={{
-        padding: 24,
-        minHeight: 360,
-        background: "white",
-        display: "grid",
-      }}
-    >
-      <h2>Allgemeine Anforderung der Erweiterung </h2>
-      <h3>Welche Kategorien treffen auf die gewünschte Erweiterung zu</h3>
-      <p>Nicht zutreffende Felder auslassen</p>
-      <h4>Visuell</h4>
-      <h5>Varianten</h5>
+  const handleLogicComplexity = (value) => {
+    console.log(value);
+    setLogicComplexity(value);
+  };
+  const handleBackendComplexity = (value) => {
+    console.log(value);
+    setBackendComplexity(value);
+  };
+  const uiComplexityHelper = () => {
+    if (uiComplexity === 0) {
+      return <p>Keine Erweiterungen oder Änderungen and der UI</p>;
+    }
+    if (uiComplexity === 1) {
+      return <p>Ansicht verändern oder personaliseren für Endbenutzer</p>;
+    }
+    if (uiComplexity === 2) {
+      return (
+        <p>
+          Größere UI anpassungen vornhemen, Elemente verschieben, einblenden,
+          ausblenden
+        </p>
+      );
+    }
+    if (uiComplexity === 3) {
+      return (
+        <p>
+          Komplette UI anpassen, neue Elemente hinzufügen, neue Seiten erstellen
+        </p>
+      );
+    }
+    return <p>hoch</p>;
+  };
+  const logicComplexityHelper = () => {
+    if (logicComplexity === 0) {
+      return <p>Keine Erweiterungen oder Änderungen and der Logik</p>;
+    }
+    if (logicComplexity === 1) {
+      return <p>Bestehende Logik anpassen</p>;
+    }
+    if (logicComplexity === 2) {
+      return <p>Neue Logik hinzufügen</p>;
+    }
+  };
+  const backendComplexityHelper = () => {
+    if (backendComplexity === 0) {
+      return (
+        <p>
+          Keine Erweiterungen am Datemodell benötigte daten befinden sich
+          bereits im bestehenden Datenmodell
+        </p>
+      );
+    }
+    if (backendComplexity === 1) {
+      return (
+        <p>
+          Felder zum Datenmodell hinzufügen, die bereits im S/4HANA System
+          vorhanden sind
+        </p>
+      );
+    }
+    if (backendComplexity === 2) {
+      return (
+        <p>
+          Felder zum Datenmodell hinzufügen, die nicht im S/4HANA System
+          vorhanden sind und neu angelegt werden müssen.
+        </p>
+      );
+    }
+    if (backendComplexity === 3) {
+      return (
+        <p>
+          Das bestehende Datenmodell wird grundlegend erweitert und zum Beispiel
+          neune Knoten, Entitäten angelegt.
+        </p>
+      );
+    }
+  };
+  const submitValues = () => {
+    setAnforderungsfilter({
+      uiComplexity: uiComplexity,
+      logicComplexity: logicComplexity,
+      backendComplexity: backendComplexity,
+    });
+  };
+
+  const handleSteps = () => {};
+
+  if (finished) {
+    return (
       <div
         style={{
-          display: "flex",
+          padding: 24,
+          minHeight: 360,
+          background: "white",
+          display: "grid",
         }}
       >
-        <Checkbox checked={localChecked} onChange={handleCheckboxChange}>
-          Es soll die estehende Ansicht (Variante) einer Fiori Applikation
-          geändert werden geändert werden
-        </Checkbox>
-        <Button onClick={openHelp} icon={<QuestionCircleOutlined />} />
-      </div>
-      <h5>UI Elemente existieren schon:</h5>
-      <Checkbox>UI Elemente in der Fiori App einblenden/ausblenden</Checkbox>
-      <Checkbox>UI Elemente in der Fiori App bewegen</Checkbox>
-      <Checkbox>UI Elemente in der Fiori App umbenennen</Checkbox>
-      <Checkbox> Eigenschaften von UI Elementen bearbeiten</Checkbox>
+        <div>
+          <h2> Anforderung der Erweiterung </h2>
 
-      <h5>Neue UI Elemente ergänzen:</h5>
-      <Checkbox>
-        Bei dem UI Element handelt es sich um ein einfaches Feld (z.B.
-        Inputfield){" "}
-      </Checkbox>
-      <Checkbox>
-        Bei dem UI Element handelt es sich um um ein komplexeres Element (z.B.
-        Tabelle){" "}
-      </Checkbox>
-      <h4>Logik</h4>
-      <Checkbox>
-        Es soll die Logik für ein bestehendes UI Element geändert werden
-      </Checkbox>
-      <Checkbox>
-        Es soll die Logik für ein neues UI Element geändert werden
-      </Checkbox>
-      <h4>Datenmodell</h4>
-      <Checkbox>
-        Das aktuelle Datenmodell liefert die nötigen Inhalte (z.B. Entitäten)
-        für die gewünschte Erweiterung
-      </Checkbox>
-      <Checkbox>Das aktuelle Datenmodell soll erweitert werden</Checkbox>
-    </div>
-  );
+          {workOnUI && (
+            <div>
+              <h3>Erweiterungen der UI</h3>
+              <p>
+                {" "}
+                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
+                bezogen auf die UI zuordnen?
+              </p>
+              Stufe: {uiComplexity}
+              <div
+                style={{
+                  width: "250px",
+                }}
+              >
+                <Slider
+                  min={0}
+                  max={3}
+                  step={1}
+                  defaultValue={uiComplexity}
+                  onChange={handleUiComplexity}
+                />
+              </div>
+              {uiComplexityHelper(uiComplexity)}
+            </div>
+          )}
+          {workOnLogic && (
+            <div>
+              <h3>Erweiterungen der Logik</h3>
+              <p>
+                {" "}
+                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
+                bezogen auf die Logik zuordnen?
+              </p>
+              Stufe: {logicComplexity}
+              <div
+                style={{
+                  width: "250px",
+                }}
+              >
+                <Slider
+                  min={0}
+                  max={2}
+                  step={1}
+                  defaultValue={logicComplexity}
+                  const
+                  onChange={handleLogicComplexity}
+                />
+              </div>
+              {logicComplexityHelper(logicComplexity)}
+            </div>
+          )}
+          {workOnBackend && (
+            <div>
+              <h3>Erweiterungen des Datenmodells</h3>
+              <p>
+                {" "}
+                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
+                bezogen auf die Erweiterung des Datenmodells im Backend
+                zuordnen?
+              </p>
+              Stufe: {backendComplexity}
+              <div
+                style={{
+                  width: "250px",
+                }}
+              >
+                <Slider
+                  min={0}
+                  max={3}
+                  step={1}
+                  defaultValue={backendComplexity}
+                  onChange={handleBackendComplexity}
+                />
+              </div>
+              {backendComplexityHelper(backendComplexity)}
+              <Button type="primary" onClick={submitValues}>
+                Anforderungsbeschreibung abschließen
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        style={{
+          padding: 20,
+          minHeight: 360,
+          background: "white",
+          display: "grid",
+        }}
+      >
+        <div>
+          <h2>Allgemeine Anforderung der Erweiterung </h2>
+          <p> Beschreibungsphase muss vollständig durchgeführt werden</p>
+          <LockOutlined
+            style={{
+              fontSize: "100px",
+              color: "rgba(0, 0, 0, 0.25)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "50px",
+            }}
+          />
+        </div>
+      </div>
+    );
+  }
 }

@@ -1,44 +1,191 @@
 import React, { useState, useEffect } from "react";
-import { Table, Input, Button, Space, Tooltip } from "antd";
+import { Table, Input, Button, Space, Tooltip, Empty } from "antd";
 import Highlighter from "react-highlight-words";
 
 export function OverviewTable({
   anforderungsFilter,
-  setTransferFilteredData,
-  backendValues,
+
+  descriptionValues,
+  showTable,
 }) {
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
-
-  const testFilter = () => {
-    if (backendValues.rap === true) {
-      const filteredData = data.filter(
+  function filterBusinessContext(input) {
+    //Filterkonditionen Geschäftskontext nicht vorhanden
+    if (descriptionValues?.businessContext === "no") {
+      const filteredData = input.filter(
         (item) =>
-          item.Backend === "CDS-RAP" ||
-          item.Backend === "CDS" ||
-          item.Backend === "NR"
+          item.Grundvorraussetzung !==
+          "Geschäftskontext der App ist im Erweiterungsregister vorhanden"
       );
-      setFilteredData(filteredData);
+      return filteredData;
     }
-    if (backendValues.bopf === true) {
-      const filteredData = data.filter(
-        (item) => item.Backend === "CDS-BOPF" || item.Backend === "CDS"
-      );
-      setFilteredData(filteredData);
+    //Filterkonditionen Geschäftskontext nicht vorhanden
+    if (descriptionValues?.businessContext === "yes") {
+      const filteredData = input;
+      return filteredData;
     }
-    if (backendValues.gateway === true) {
-      const filteredData = data.filter(
+  }
+  function filterODatatypes(input) {
+    //Filterkonditionen für SEGW
+    if (descriptionValues?.oDataType === "SEGW") {
+      const filteredData = input.filter(
         (item) => item.Backend === "SEGW OData" || item.Backend === "NR"
       );
-      setFilteredData(filteredData);
+      return filteredData;
     }
-    if (backendValues.badi === false) {
-      filteredData.filter(
-        (item) => item.Lokalvoraussetzung !== "BAdI muss vorhanden sein."
+    if (descriptionValues?.oDataType === "BOPF") {
+      const filteredData = input.filter(
+        (item) =>
+          item.Backend === "CDS" ||
+          item.Backend === "CDS-BOPF" ||
+          item.Backend === "NR"
       );
-      setFilteredData(filteredData);
-    } else {
-      setFilteredData(data);
+      return filteredData;
+    }
+    if (descriptionValues?.oDataType === "RAP") {
+      const filteredData = input.filter(
+        (item) =>
+          item.Backend === "CDS" ||
+          item.Backend === "CDS-RAP" ||
+          item.Backend === "NR"
+      );
+      if (descriptionValues?.behavioAllowed === "no") {
+        const filteredData2 = filteredData.filter(
+          (item) =>
+            item.Grundvorraussetzung !==
+            "In der Standard Behavior Definition muss im Kopf �extensible� stehen."
+        );
+        return filteredData2;
+      }
+      return filteredData;
+    }
+  }
+  function filterUiComplexity(input) {
+    console.log(anforderungsFilter?.uiComplexity);
+    if (anforderungsFilter?.uiComplexity === 0) {
+      alert("filterUiComplexity");
+      const filteredData = input.filter(
+        (item) => item.Erweiterungsmöglichkeit === "Ansicht verändern"
+      );
+      return filteredData;
+    }
+  }
+
+  //Nur Einstiegspunkte anzeigen
+  const testFilter2 = () => {
+    const filteredData = data?.filter((item) => item.Einstiegspunkt === "Ja\r");
+    //Wenn descriptionValues leer ist wird auh nichts in der Tabelle angezeigt
+    if (descriptionValues === undefined) {
+      setFilteredData(null);
+    }
+    // Filterkonditionen für SAPUI5
+    if (descriptionValues?.uiType === "SAPUI5") {
+      //Nur einrtäge speziell für SAPUI5 anzeigen oder Einträge die UI unspezifisch sind
+      const filteredData2 = filteredData.filter(
+        (item) => item.UI === "UI5" || item.UI === "NR"
+      );
+      //Filterkonditionen für SAPUI5 Flexibility und enthält Synchrone Views
+      if (
+        descriptionValues.flexEnabled === "yes" &&
+        descriptionValues.syncEnabled === "yes"
+      ) {
+        const filteredData3 = filteredData2.filter(
+          (item) => item.Erweiterungsoption !== "Controller hinzufügen"
+        );
+        //Filterkonditionen Geschäftskontext
+        const filteredData4 = filterBusinessContext(filteredData3);
+        //Filterkonditionen für OData
+        const filteredData5 = filterODatatypes(filteredData4);
+        setFilteredData(filteredData5);
+      }
+      //Filterkonditionen für SAPUI5 Flexibility und enthält KEINE Synchrone Views
+      if (
+        descriptionValues?.flexEnabled === "yes" &&
+        descriptionValues?.syncEnabled === "no"
+      ) {
+        const filteredData3 = filteredData2.filter(
+          (item) => item.Grundvorraussetzung !== "Extension Project"
+        );
+        //Filterkonditionen Geschäftskontext
+        const filteredData4 = filterBusinessContext(filteredData3);
+        //Filterkonditionen für OData
+        const filteredData5 = filterODatatypes(filteredData4);
+        setFilteredData(filteredData5);
+      }
+      //Filterkonditionen wenn SAPUI5 Flexibility nicht verfügbar ist
+      if (descriptionValues?.flexEnabled === "no") {
+        const filteredData3 = filteredData2.filter(
+          (item) => item.Grundvorraussetzung !== "SAPUI5 Flexibility"
+        );
+        //Filterkonditionen Geschäftskontext
+        const filteredData4 = filterBusinessContext(filteredData3);
+        //Filterkonditionen für OData
+        const filteredData5 = filterODatatypes(filteredData4);
+        setFilteredData(filteredData5);
+      }
+    }
+    // Filterkonditionen für Fiori Elements
+    if (
+      descriptionValues?.uiType === "FE" &&
+      (descriptionValues?.floorplan === "List Report" ||
+        descriptionValues?.floorplan === "Analytical List Page")
+    ) {
+      alert("FE-ListR-Analytic");
+      const filteredData2 = filteredData.filter(
+        (item) =>
+          item.UI === "FE" ||
+          item.UI === "NR" ||
+          item.UI === "FE-ListR-Analytic"
+      );
+      //Filterkonditionen Geschäftskontext
+      const filteredData3 = filterBusinessContext(filteredData2);
+      //Filterkonditionen für OData
+      const filteredData4 = filterODatatypes(filteredData3);
+      const filteredData5 = filterUiComplexity(filteredData4);
+      setFilteredData(filteredData5);
+    }
+    if (
+      descriptionValues?.uiType === "FE" &&
+      descriptionValues?.floorplan === "Object Page"
+    ) {
+      alert("FE-Obj");
+      const filteredData2 = filteredData.filter(
+        (item) => item.UI === "FE" || item.UI === "NR" || item.UI === "FE-Obj"
+      );
+      //Filterkonditionen Geschäftskontext
+      const filteredData3 = filterBusinessContext(filteredData2);
+      //Filterkonditionen für OData
+      const filteredData4 = filterODatatypes(filteredData3);
+      setFilteredData(filteredData4);
+    }
+    if (
+      descriptionValues?.uiType === "FE" &&
+      descriptionValues?.floorplan === "Worklist"
+    ) {
+      alert("FE-Worklist");
+      const filteredData2 = filteredData.filter(
+        (item) => item.UI === "FE" || item.UI === "NR"
+      );
+      //Filterkonditionen Geschäftskontext
+      const filteredData3 = filterBusinessContext(filteredData2);
+      //Filterkonditionen für OData
+      const filteredData4 = filterODatatypes(filteredData3);
+      setFilteredData(filteredData4);
+    }
+    if (
+      descriptionValues?.uiType === "FE" &&
+      descriptionValues?.floorplan === "Overview Page"
+    ) {
+      alert("FE");
+      const filteredData2 = filteredData.filter(
+        (item) => item.UI === "FE" || item.UI === "NR" || item.UI === "FE-Overv"
+      );
+      //Filterkonditionen Geschäftskontext
+      const filteredData3 = filterBusinessContext(filteredData2);
+      //Filterkonditionen für OData
+      const filteredData4 = filterODatatypes(filteredData3);
+      setFilteredData(filteredData4);
     }
   };
 
@@ -74,9 +221,9 @@ export function OverviewTable({
         }
 
         setData(objectArray);
-        testFilter();
+        testFilter2();
       });
-  }, [backendValues]);
+  }, [descriptionValues]);
 
   const columns = [
     {
@@ -109,6 +256,12 @@ export function OverviewTable({
       key: "Beschreibung",
       width: 300,
     },
+    {
+      title: "Voraussetzung",
+      dataIndex: "Lokalvoraussetzung",
+      key: "Lokalvoraussetzung",
+      width: 150,
+    },
 
     {
       title: "Erweiterungsmöglichkeit",
@@ -126,15 +279,37 @@ export function OverviewTable({
 
     // Weitere Spalten hinzufügen und die Breiten nach Bedarf anpassen
   ];
-
-  return (
-    <>
-      <Button
-        onClick={() => {
-          console.log(filteredData);
-        }}
-      ></Button>
-      <Table dataSource={filteredData} columns={columns} />
-    </>
-  );
+  if (showTable) {
+    return (
+      <div>
+        <h2>Mögliche Erweiterungen</h2>
+        <Button
+          onClick={() => {
+            console.log(filteredData);
+          }}
+        ></Button>
+        <h2>({filteredData?.length})</h2>
+        <p>
+          Erweietrungsoptionen für eine Anwendung mit{" "}
+          {descriptionValues?.uiType}{" "}
+        </p>
+        <Table dataSource={filteredData} columns={columns} />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <h2>Mögliche Erweiterungen</h2>
+        <p>
+          {" "}
+          Bitte führen Sie erst die Beschreibungsphase durch vollsrändig durch
+        </p>
+        <Empty
+          style={{
+            marginTop: "50px",
+          }}
+        />
+      </div>
+    );
+  }
 }
