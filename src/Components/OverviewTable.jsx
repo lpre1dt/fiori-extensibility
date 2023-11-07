@@ -4,12 +4,15 @@ import Highlighter from "react-highlight-words";
 
 export function OverviewTable({
   anforderungsFilter,
-
+  showDetailView,
   descriptionValues,
   showTable,
 }) {
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
+  const [uiFilteredData, setUiFilteredData] = useState();
+  const [logicFilteredData, setLogicFilteredData] = useState();
+  const [dataModelfilteredData, setDataModelfilteredData] = useState();
   function filterBusinessContext(input) {
     //Filterkonditionen Geschäftskontext nicht vorhanden
     if (descriptionValues?.businessContext === "no") {
@@ -63,10 +66,67 @@ export function OverviewTable({
   }
   function filterUiComplexity(input) {
     console.log(anforderungsFilter?.uiComplexity);
-    if (anforderungsFilter?.uiComplexity === 0) {
+    if (anforderungsFilter?.uiComplexity === 1) {
       alert("filterUiComplexity");
       const filteredData = input.filter(
         (item) => item.Erweiterungsmöglichkeit === "Ansicht verändern"
+      );
+      return filteredData;
+    }
+    if (anforderungsFilter?.uiComplexity === 2) {
+      const filteredData = input.filter(
+        (item) =>
+          item.Erweiterungsmöglichkeit === "Visuelle Anpassung" ||
+          item.Erweiterungsmöglichkeit === "Visuelle Erweiterung"
+      );
+      return filteredData;
+    }
+    if (anforderungsFilter?.uiComplexity === 3) {
+      const filteredData = input.filter(
+        (item) => item.Erweiterungsmöglichkeit === "Visuelle Erweiterung"
+      );
+      return filteredData;
+    }
+  }
+  function filterLogicComplexity(input) {
+    if (anforderungsFilter?.logicComplexity === 1) {
+      const filteredData = input.filter(
+        (item) => item.Erweiterungsmöglichkeit === "Logik Anpassung"
+      );
+      return filteredData;
+    }
+    if (anforderungsFilter?.logicComplexity === 2) {
+      const filteredData = input.filter(
+        (item) =>
+          item.Erweiterungsmöglichkeit === "Logik Anpassung" ||
+          item.Erweiterungsmöglichkeit === "Logik Erweiterung"
+      );
+      return filteredData;
+    }
+  }
+  function filterBackendComplexity(input) {
+    if (anforderungsFilter?.backendComplexity === 1) {
+      const filteredData = input.filter(
+        (item) =>
+          item.Erweiterungsmöglichkeit === "Datenmodell" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell-Felder" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell Felder" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell-komplex"
+      );
+      return filteredData;
+    }
+    if (anforderungsFilter?.backendComplexity === 2) {
+      const filteredData = input.filter(
+        (item) =>
+          item.Erweiterungsmöglichkeit === "Datenmodell-Felder" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell Felder" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell-komplex"
+      );
+      return filteredData;
+    }
+    if (anforderungsFilter?.backendComplexity === 3) {
+      const filteredData = input.filter(
+        (item) => item.Erweiterungsmöglichkeit === "Datenmodell-komplex"
       );
       return filteredData;
     }
@@ -132,7 +192,7 @@ export function OverviewTable({
         descriptionValues?.floorplan === "Analytical List Page")
     ) {
       alert("FE-ListR-Analytic");
-      const filteredData2 = filteredData.filter(
+      const filteredData2 = filteredData?.filter(
         (item) =>
           item.UI === "FE" ||
           item.UI === "NR" ||
@@ -142,8 +202,7 @@ export function OverviewTable({
       const filteredData3 = filterBusinessContext(filteredData2);
       //Filterkonditionen für OData
       const filteredData4 = filterODatatypes(filteredData3);
-      const filteredData5 = filterUiComplexity(filteredData4);
-      setFilteredData(filteredData5);
+      setFilteredData(filteredData4);
     }
     if (
       descriptionValues?.uiType === "FE" &&
@@ -224,6 +283,16 @@ export function OverviewTable({
         testFilter2();
       });
   }, [descriptionValues]);
+  useEffect(() => {
+    if (filteredData !== undefined) {
+      const filteredData2 = filterUiComplexity(filteredData);
+      const filteredData3 = filterLogicComplexity(filteredData);
+      const filteredData4 = filterBackendComplexity(filteredData);
+      setUiFilteredData(filteredData2);
+      setLogicFilteredData(filteredData3);
+      setDataModelfilteredData(filteredData4);
+    }
+  }, [anforderungsFilter]);
 
   const columns = [
     {
@@ -293,7 +362,59 @@ export function OverviewTable({
           Erweietrungsoptionen für eine Anwendung mit{" "}
           {descriptionValues?.uiType}{" "}
         </p>
-        <Table dataSource={filteredData} columns={columns} />
+        <Table dataSource={filteredData} columns={columns} pagination={false} />
+      </div>
+    );
+  }
+  if (showDetailView) {
+    return (
+      <div>
+        <h2>Mögliche Erweiterungen für die jewiligen Anforderungen</h2>
+        {anforderungsFilter?.uiComplexity !== 0 && (
+          <div>
+            <h3>UI Erweiterungsoptionen: </h3>
+            <p>
+              {" "}
+              UI-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
+              {anforderungsFilter?.uiComplexity}
+            </p>
+            <Table
+              dataSource={uiFilteredData}
+              columns={columns}
+              pagination={false}
+            />
+          </div>
+        )}
+        {anforderungsFilter?.logicComplexity !== 0 && (
+          <div>
+            <h3>Logik Erweiterungsoptionen: </h3>
+            <p>
+              {" "}
+              Logik-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
+              {anforderungsFilter?.logicComplexity}
+            </p>
+            <Table
+              dataSource={logicFilteredData}
+              columns={columns}
+              pagination={false}
+            />
+          </div>
+        )}
+        {anforderungsFilter?.backendComplexity !== 0 && (
+          <div>
+            <h3>Datenmodell Erweiterungsoptionen: </h3>
+            <p>
+              {" "}
+              Backend-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
+              {anforderungsFilter?.backendComplexity}
+            </p>
+            <Table
+              dataSource={dataModelfilteredData}
+              columns={columns}
+              pagination={false}
+            />
+          </div>
+        )}
       </div>
     );
   } else {

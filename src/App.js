@@ -15,6 +15,7 @@ function App() {
         <Image
           width={100}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/MHP_Management-_und_IT-Beratung_logo.svg/500px-MHP_Management-_und_IT-Beratung_logo.svg.png"
+          preview={false}
         />
         <Header
           style={{

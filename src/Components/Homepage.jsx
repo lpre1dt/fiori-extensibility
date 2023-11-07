@@ -30,6 +30,7 @@ export function Homepage() {
   const [descriptionValues, setDescriptionValues] = useState("");
   const [showTable, setShowTable] = useState(false);
   const [showEvaluation, setShowEvaluation] = useState(false);
+  const [showDetailView, setShowDetailView] = useState(false);
   function handleBackend(newValue) {
     setBackenValues(newValue);
   }
@@ -103,7 +104,10 @@ export function Homepage() {
                 <Anforderungen
                   anforderungsFilter={anforderungsFilter}
                   setAnforderungsfilter={setAnforderungsfilter}
-                  finished={showTable}
+                  showTable={showTable}
+                  showDetailView={showDetailView}
+                  setShowDetailView={setShowDetailView}
+                  setShowTable={setShowTable}
                 />
               }
             />
@@ -156,6 +160,9 @@ export function Homepage() {
                   anforderungsFilter={anforderungsFilter}
                   descriptionValues={descriptionValues}
                   showTable={showTable}
+                  setShowTable={setShowTable}
+                  showDetailView={showDetailView}
+                  setShowDetailView={setShowDetailView}
                 />
               </div>
             </div>

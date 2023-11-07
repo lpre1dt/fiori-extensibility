@@ -8,6 +8,10 @@ export function Anforderungen({
   anforderungsFilter,
   setAnforderungsfilter,
   finished,
+  setShowTable,
+  setShowDetailView,
+  showTable,
+  showDetailView,
 }) {
   const [workOnUI, setWorkOnUI] = useState(true);
   const [workOnLogic, setWorkOnLogic] = useState(true); // [0, 10
@@ -106,11 +110,13 @@ export function Anforderungen({
       logicComplexity: logicComplexity,
       backendComplexity: backendComplexity,
     });
+    setShowTable(false);
+    setShowDetailView(true);
   };
 
   const handleSteps = () => {};
 
-  if (finished) {
+  if (showTable || showDetailView) {
     return (
       <div
         style={{
