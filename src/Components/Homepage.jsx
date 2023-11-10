@@ -4,6 +4,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   UnorderedListOutlined,
+  BarChartOutlined,
   DatabaseOutlined,
   DesktopOutlined,
   DashboardOutlined,
@@ -28,8 +29,11 @@ export function Homepage() {
   const [backendValues, setBackenValues] = useState({});
   const [frontendValues, setFrontendValues] = useState("");
   const [descriptionValues, setDescriptionValues] = useState("");
+  const [uiFilteredData, setUiFilteredData] = useState();
+  const [logicFilteredData, setLogicFilteredData] = useState();
+  const [dataModelfilteredData, setDataModelfilteredData] = useState();
   const [showTable, setShowTable] = useState(false);
-  const [showEvaluation, setShowEvaluation] = useState(false);
+
   const [showDetailView, setShowDetailView] = useState(false);
   function handleBackend(newValue) {
     setBackenValues(newValue);
@@ -74,7 +78,7 @@ export function Homepage() {
             },
             {
               key: "/beschreibung",
-              label: "Beschreibungsphase",
+              label: "Beschreibung",
               icon: React.createElement(DesktopOutlined),
             },
 
@@ -85,8 +89,8 @@ export function Homepage() {
             },
             {
               key: "/evaluation",
-              label: "Evaluationsphase",
-              icon: React.createElement(DatabaseOutlined),
+              label: "Evaluation",
+              icon: React.createElement(BarChartOutlined),
             },
           ]}
         />
@@ -118,6 +122,8 @@ export function Homepage() {
                   setDescriptionValues={setDescriptionValues}
                   descriptionValues={descriptionValues}
                   setShowTable={setShowTable}
+                  setAnforderungsfilter={setAnforderungsfilter}
+                  setShowDetailView={setShowDetailView}
                 />
               }
             />
@@ -132,7 +138,14 @@ export function Homepage() {
             />
             <Route
               path="/evaluation"
-              element={<Bewertung showEvaluation={showEvaluation} />}
+              element={
+                <Bewertung
+                  uiFilteredData={uiFilteredData}
+                  logicFilteredData={logicFilteredData}
+                  dataModelfilteredData={dataModelfilteredData}
+                  showEvaluation={showDetailView}
+                />
+              }
             />
             <Route path="/hilfe" element={<Help />} />
             <Route path="/" element={<Startseite />} />
@@ -163,6 +176,12 @@ export function Homepage() {
                   setShowTable={setShowTable}
                   showDetailView={showDetailView}
                   setShowDetailView={setShowDetailView}
+                  uiFilteredData={uiFilteredData}
+                  setUiFilteredData={setUiFilteredData}
+                  logicFilteredData={logicFilteredData}
+                  setLogicFilteredData={setLogicFilteredData}
+                  dataModelfilteredData={dataModelfilteredData}
+                  setDataModelfilteredData={setDataModelfilteredData}
                 />
               </div>
             </div>

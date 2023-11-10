@@ -23,7 +23,7 @@ function App() {
             fontSize: "25px",
           }}
         >
-          Fiori Extensibility Compass by MHP{" "}
+          Fiori Extensibility Compass{" "}
         </Header>
       </div>
 

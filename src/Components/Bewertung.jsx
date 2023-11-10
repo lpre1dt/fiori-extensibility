@@ -12,32 +12,122 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export default function Bewertung({ showEvaluation, filteredData }) {
+export default function Bewertung({
+  showEvaluation,
+  uiFilteredData,
+  logicFilteredData,
+  dataModelfilteredData,
+}) {
   if (showEvaluation) {
     return (
-      <div>
+      <div
+        style={{
+          padding: 24,
+          minHeight: 360,
+          background: "white",
+        }}
+      >
         <h2>Bewertete Erweiterungsoptionen </h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <ScatterChart
-            margin={{
-              top: 20,
-              right: 20,
-              bottom: 20,
-            }}
-          >
-            <XAxis type="number" dataKey="Umfang" name="Umfang" unit="U" />
-            <YAxis
-              type="number"
-              dataKey="Umfang"
-              name="Flexibilität"
-              unit="F"
-            />
-            <ZAxis type="text" dataKey="Name" name="Name" />
-            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
 
-            <Scatter data={filteredData} fill="#04049c" />
-          </ScatterChart>
-        </ResponsiveContainer>
+        {uiFilteredData && (
+          <div>
+            <h3>Bewertete UI-Erweiterungsoptionen</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <ScatterChart
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                }}
+              >
+                <XAxis
+                  type="number"
+                  dataKey="Aufwand"
+                  name="Aufwand"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <YAxis
+                  type="number"
+                  dataKey="Flexibilitat"
+                  name="Flexibilität"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <ZAxis type="text" dataKey="Erweiterungsoption" name="Name" />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+
+                <Scatter data={uiFilteredData} fill="#04049c" />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+        {logicFilteredData && (
+          <div>
+            <h3>Bewertete Logik-Erweiterungsoptionen</h3>
+            <ResponsiveContainer width="80%" height={400}>
+              <ScatterChart
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                }}
+              >
+                <XAxis
+                  type="number"
+                  dataKey="Aufwand"
+                  name="Aufwand"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <YAxis
+                  type="number"
+                  dataKey="Flexibilitat"
+                  name="Flexibilität"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <ZAxis type="text" dataKey="Erweiterungsoption" name="Name" />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+
+                <Scatter data={logicFilteredData} fill="#04049c" />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+        {dataModelfilteredData && (
+          <div>
+            <h3>Bewertete Datenmodell-Erweiterungsoptionen</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <ScatterChart
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                }}
+              >
+                <XAxis
+                  type="number"
+                  dataKey="Aufwand"
+                  name="Aufwand"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <YAxis
+                  type="number"
+                  dataKey="Flexibilitat"
+                  name="Flexibilität"
+                  unit="%"
+                  domain={[0, 100]}
+                />
+                <ZAxis type="text" dataKey="Erweiterungsoption" name="Name" />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+
+                <Scatter data={dataModelfilteredData} fill="#04049c" />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
     );
   } else {

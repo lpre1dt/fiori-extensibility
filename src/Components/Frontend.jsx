@@ -8,6 +8,8 @@ export function Frontend({
   descriptionValues,
   setDescriptionValues,
   setShowTable,
+  setAnforderungsfilter,
+  setShowDetailView,
 }) {
   const [frontend, setFrontend] = useState(true);
 
@@ -20,6 +22,12 @@ export function Frontend({
   const [behavioAllowed, setBehaviorAllowed] = useState("null");
   const handleFinished = () => {
     setShowTable(true);
+    setShowDetailView(false);
+    setAnforderungsfilter({
+      uiComplexity: 0,
+      logicComplexity: 0,
+      backenComplexity: 0,
+    });
   };
   const handleFloorplan = (e) => {
     setFloorplan(e.target.value);

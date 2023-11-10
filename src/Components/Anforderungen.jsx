@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Checkbox, Button, Slider } from "antd";
+import { Checkbox, Button, Slider, Select } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { LockOutlined } from "@ant-design/icons";
@@ -114,7 +114,11 @@ export function Anforderungen({
     setShowDetailView(true);
   };
 
-  const handleSteps = () => {};
+  useEffect(() => {
+    setUiComplexity(anforderungsFilter?.uiComplexity);
+    setLogicComplexity(anforderungsFilter?.logicComplexity);
+    setBackendComplexity(anforderungsFilter?.backendComplexity);
+  }, [anforderungsFilter]);
 
   if (showTable || showDetailView) {
     return (
@@ -147,6 +151,7 @@ export function Anforderungen({
                   min={0}
                   max={3}
                   step={1}
+                  value={uiComplexity}
                   defaultValue={uiComplexity}
                   onChange={handleUiComplexity}
                 />
@@ -168,13 +173,15 @@ export function Anforderungen({
                   width: "250px",
                 }}
               >
-                <Slider
-                  min={0}
-                  max={2}
-                  step={1}
+                <Select
                   defaultValue={logicComplexity}
-                  const
                   onChange={handleLogicComplexity}
+                  style={{ width: "250px", marginTop: "20px" }}
+                  options={[
+                    { value: 0, label: "Keine Erweiterung der Logik" },
+                    { value: 1, label: "Logik anpassen" },
+                    { value: 2, label: "Logik erweitern" },
+                  ]}
                 />
               </div>
               {logicComplexityHelper(logicComplexity)}
@@ -196,6 +203,7 @@ export function Anforderungen({
                 }}
               >
                 <Slider
+                  value={backendComplexity}
                   min={0}
                   max={3}
                   step={1}
