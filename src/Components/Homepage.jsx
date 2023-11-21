@@ -9,7 +9,7 @@ import {
   DesktopOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme, Drawer } from "antd";
 import { OverviewTable } from "./OverviewTable";
 import { Anforderungen } from "./Anforderungen";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
@@ -19,12 +19,16 @@ import Bewertung from "./Bewertung";
 import Startseite from "./Startseite";
 import Help from "./Help";
 import { findDOMNode } from "react-dom";
+import UIType from "../Hilfe/UIType";
+import SAPFlex from "../Hilfe/SAPFlex";
+import SyncViews from "../Hilfe/SyncViews";
 const { Header, Content, Footer, Sider } = Layout;
 
 export function Homepage() {
   const navigate = useNavigate();
 
   const [anforderungsFilter, setAnforderungsfilter] = useState();
+  const [showHelp, setShowHelp] = useState(false);
   const [transferFilteredData, setTransferFilteredData] = useState();
   const [backendValues, setBackenValues] = useState({});
   const [frontendValues, setFrontendValues] = useState("");
@@ -40,6 +44,9 @@ export function Homepage() {
   }
   function handlFrontend(newValue) {
     setFrontendValues(newValue);
+  }
+  function closeDrawer() {
+    setShowHelp({ show: false });
   }
 
   return (
@@ -101,6 +108,15 @@ export function Homepage() {
             margin: "24px 16px 0",
           }}
         >
+          <Drawer
+            width={720}
+            title="Hilfe"
+            placement="right"
+            onClose={closeDrawer}
+            open={showHelp?.show}
+          >
+            <Help setShowHelp={setShowHelp} showHelp={showHelp} />
+          </Drawer>
           <Routes>
             <Route
               path="/anforderungen"
@@ -124,6 +140,7 @@ export function Homepage() {
                   setShowTable={setShowTable}
                   setAnforderungsfilter={setAnforderungsfilter}
                   setShowDetailView={setShowDetailView}
+                  setShowHelp={setShowHelp}
                 />
               }
             />
@@ -149,6 +166,16 @@ export function Homepage() {
             />
             <Route path="/hilfe" element={<Help />} />
             <Route path="/" element={<Startseite />} />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/beschreibung/uitype" element={<UIType />} />
+            <Route
+              path="/beschreibung/sapui5flexibility"
+              element={<SAPFlex />}
+            />
+            <Route
+              path="/beschreibung/checksyncviews"
+              element={<SyncViews />}
+            />
           </Routes>
         </Content>
         <Content

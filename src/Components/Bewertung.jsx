@@ -25,6 +25,7 @@ export default function Bewertung({
           padding: 24,
           minHeight: 360,
           background: "white",
+          borderRadius: "10px",
         }}
       >
         <h2>Bewertete Erweiterungsoptionen </h2>
@@ -137,6 +138,7 @@ export default function Bewertung({
           padding: 24,
           minHeight: 360,
           background: "white",
+          borderRadius: "10px",
         }}
       >
         <h2>Bewertete Erweiterungsoption</h2>

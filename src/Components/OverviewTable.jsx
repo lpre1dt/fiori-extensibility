@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Input, Button, Space, Tooltip, Empty } from "antd";
 import Highlighter from "react-highlight-words";
+import DetailView from "./DetailView";
 
 export function OverviewTable({
   anforderungsFilter,
@@ -129,13 +130,16 @@ export function OverviewTable({
           item.Erweiterungsmöglichkeit === "Datenmodell 2" ||
           item.Erweiterungsmöglichkeit === "Datenmodell 1,2" ||
           item.Erweiterungsmöglichkeit === "Datenmodell 2,3" ||
-          item.Erweiterungsmöglichkeit === "Datenmodell 3"
+          item.Erweiterungsmöglichkeit === "Datenmodell 1,2,3"
       );
       return filteredData;
     }
     if (anforderungsFilter?.backendComplexity === 3) {
       const filteredData = input.filter(
-        (item) => item.Erweiterungsmöglichkeit === "Datenmodell 3"
+        (item) =>
+          item.Erweiterungsmöglichkeit === "Datenmodell 3" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell 2,3" ||
+          item.Erweiterungsmöglichkeit === "Datenmodell 1,2,3"
       );
       return filteredData;
     }
@@ -284,6 +288,10 @@ export function OverviewTable({
             Einstiegspunkt: dataArr2[i][11],
             Aufwand: dataArr2[i][12],
             Flexibilitat: dataArr2[i][13],
+            Aufwand2: dataArr2[i][14],
+            Flexibilitat2: dataArr2[i][15],
+            ID2: dataArr2[i][16],
+            ID: dataArr2[i][17],
           };
           objectArray.push(obj);
         }
@@ -305,11 +313,18 @@ export function OverviewTable({
 
   const columns = [
     {
+      title: "ID",
+      dataIndex: "ID",
+      key: "ID",
+      width: 5,
+    },
+    {
       title: "Erweiterungsoption",
       dataIndex: "Erweiterungsoption",
       key: "Erweiterungsoption",
       width: 100,
     },
+
     {
       title: "Typ",
       dataIndex: "Typ",
@@ -385,9 +400,23 @@ export function OverviewTable({
               {anforderungsFilter?.uiComplexity}
             </p>
             <Table
+              rowKey={(record) => record.ID2}
               dataSource={uiFilteredData}
               columns={columns}
               pagination={false}
+              expandable={{
+                expandedRowRender: (record) => (
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    <DetailView record={record} data={data} />
+                  </p>
+                ),
+
+                rowExpandable: (record) => record.name !== "Not Expandable",
+              }}
             />
           </div>
         )}
@@ -400,9 +429,23 @@ export function OverviewTable({
               {anforderungsFilter?.logicComplexity}
             </p>
             <Table
+              rowKey={(record) => record.ID2}
               dataSource={logicFilteredData}
               columns={columns}
               pagination={false}
+              expandable={{
+                expandedRowRender: (record) => (
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    <DetailView record={record} data={data} />
+                  </p>
+                ),
+
+                rowExpandable: (record) => record.name !== "Not Expandable",
+              }}
             />
           </div>
         )}
@@ -417,9 +460,23 @@ export function OverviewTable({
               {anforderungsFilter?.backendComplexity}
             </p>
             <Table
+              rowKey={(record) => record.ID2}
               dataSource={dataModelfilteredData}
               columns={columns}
               pagination={false}
+              expandable={{
+                expandedRowRender: (record) => (
+                  <p
+                    style={{
+                      margin: 0,
+                    }}
+                  >
+                    <DetailView record={record} data={data} />
+                  </p>
+                ),
+
+                rowExpandable: (record) => record.name !== "Not Expandable",
+              }}
             />
           </div>
         )}

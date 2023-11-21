@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { DatabaseOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 export function Frontend({
   descriptionValues,
@@ -10,7 +11,12 @@ export function Frontend({
   setShowTable,
   setAnforderungsfilter,
   setShowDetailView,
+  setShowHelp,
 }) {
+  const navigate = useNavigate();
+  const handleHelp = () => {
+    navigate("/hilfe");
+  };
   const [frontend, setFrontend] = useState(true);
 
   const [uiType, setUiType] = useState("null");
@@ -26,7 +32,7 @@ export function Frontend({
     setAnforderungsfilter({
       uiComplexity: 0,
       logicComplexity: 0,
-      backenComplexity: 0,
+      backendComplexity: 0,
     });
   };
   const handleFloorplan = (e) => {
@@ -99,12 +105,14 @@ export function Frontend({
         padding: 24,
         minHeight: 360,
         background: "white",
+        borderRadius: "10px",
+        width: "100%",
       }}
     >
       <h2>Beschreibungsphase</h2>
 
       {frontend === true && (
-        <div>
+        <div style={{}}>
           <h3>Frontend</h3>
           <div>
             <Radio.Group defaultValue={uiType}>
@@ -120,7 +128,14 @@ export function Frontend({
             <div>
               <p>
                 Bitte wählen sie eine Option aus. Hilfe zur Beantwortung dieser
-                Frage finden sie <Link>hier</Link>
+                Frage finden sie{" "}
+                <Link
+                  onClick={() => {
+                    setShowHelp({ show: true, help: "ui" });
+                  }}
+                >
+                  hier
+                </Link>
               </p>
             </div>
           )}
@@ -129,7 +144,14 @@ export function Frontend({
               <p>
                 Erfüllt die Anwendung die Bedingungen für SAPUI5 Flexibility?{" "}
                 Wie überprüft werden kann, ob die Bedingungen für SAPUI5
-                Flexibility erfüllt sind erfahren Sie <Link>hier</Link>
+                Flexibility erfüllt sind erfahren Sie{" "}
+                <Link
+                  onClick={() => {
+                    setShowHelp({ show: true, help: "flex" });
+                  }}
+                >
+                  hier
+                </Link>
               </p>
               <Radio.Group defaultValue={flexEabled}>
                 <Radio onChange={changeFlex} value={"yes"}>
@@ -145,7 +167,13 @@ export function Frontend({
                   <p>
                     Enthält die Anwendung synchrone Views? Wie überprüft werden
                     kann, ob die Anwendung synchrone Views enthält erfahren Sie{" "}
-                    <Link>hier</Link>
+                    <Link
+                      onClick={() => {
+                        setShowHelp({ show: true, help: "sync" });
+                      }}
+                    >
+                      hier
+                    </Link>
                   </p>
                   <Radio.Group defaultValue={syncEnabled}>
                     <Radio onChange={changeSync} value={"yes"}>
@@ -227,7 +255,13 @@ export function Frontend({
 
               <p>
                 Eine kurze Vorstellung der Fiori Elements Floorpläne finden Sie{" "}
-                <Link>hier</Link>
+                <Link
+                  onClick={() => {
+                    setShowHelp({ show: true, help: "floorplan" });
+                  }}
+                >
+                  hier
+                </Link>
               </p>
               {floorplan !== "null" && (
                 <Button
@@ -263,7 +297,13 @@ export function Frontend({
             Ist der Geschäftskontext der Anwendung im Erweiterungsregister
             vorhanden? Wie sie herausfinden, ob der Geschäftskontext der
             Anwendung im Erweiterungsregister vorhanden ist erfahren sie{" "}
-            <Link>hier</Link>{" "}
+            <Link
+              onClick={() => {
+                setShowHelp({ show: true, help: "context" });
+              }}
+            >
+              hier
+            </Link>{" "}
           </p>
           <Radio.Group defaultValue={businessContext}>
             <Radio onChange={changeBuinessContext} value={"yes"}>

@@ -19,10 +19,7 @@ export function Anforderungen({
   const [uiComplexity, setUiComplexity] = useState(0); // [0, 10
   const [logicComplexity, setLogicComplexity] = useState(0); // [0, 10
   const [backendComplexity, setBackendComplexity] = useState(0); // [0, 10
-  const navigate = useNavigate();
-  const openHelp = () => {
-    navigate("/hilfe");
-  };
+
   const handleUiComplexity = (value) => {
     console.log(value);
     setUiComplexity(value);
@@ -128,6 +125,7 @@ export function Anforderungen({
           minHeight: 360,
           background: "white",
           display: "grid",
+          borderRadius: "10px",
         }}
       >
         <div>
@@ -228,6 +226,7 @@ export function Anforderungen({
           minHeight: 360,
           background: "white",
           display: "grid",
+          borderRadius: "10px",
         }}
       >
         <div>
