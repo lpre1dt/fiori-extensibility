@@ -1,5 +1,6 @@
 import React from "react";
 import { Tabs } from "antd";
+import Image from "antd/es/image";
 import {
   AppstoreOutlined,
   DesktopOutlined,
@@ -12,30 +13,19 @@ export default function SyncViews() {
       <h3>
         Wie wird bestimmt ob eine Fiori-Anwendung synchrone Views verwendet?
       </h3>
-      <Tabs defaultActiveKey="1">
-        <Tabs.TabPane
-          tab={
-            <span>
-              <DesktopOutlined />
-              Im Business Application Studio
-            </span>
-          }
-          key="1"
-        >
-          <p>SAPUI5 ashka ist eine Technologie, die es ermöglicht, die</p>
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          tab={
-            <span>
-              <CodeOutlined />
-              Manuell
-            </span>
-          }
-          key="2"
-        >
-          <p>Bla</p>
-        </Tabs.TabPane>
-      </Tabs>
+
+      <p>
+        Um festzustellen, ob die Anwendung synchrone Views verwendet, sollte
+        dies im Business Application Studio geprüft werden. Hierfür muss ein
+        Adaptation Project definiert und bis zum Schritt "Select Application"
+        fortgefahren werden.
+      </p>
+      <Image src="/SyncViews.png" alt="Adaptation Project" />
+      <p>
+        Wenn die Anwendung synchrone Views enthält, wird dies gemeldet, und es
+        wird die Möglichkeit geboten, zwischen einem Adaptation- oder
+        Extension-Projekt zu wählen.
+      </p>
     </div>
   );
 }

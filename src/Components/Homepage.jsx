@@ -76,6 +76,7 @@ export function Homepage() {
           defaultSelectedKeys={["4"]}
           onClick={({ key }) => {
             navigate(key);
+            window.scrollTo(0, 0);
           }}
           items={[
             {
@@ -85,7 +86,7 @@ export function Homepage() {
             },
             {
               key: "/beschreibung",
-              label: "Beschreibung",
+              label: "Fiori-Anwendung",
               icon: React.createElement(DesktopOutlined),
             },
 
@@ -96,7 +97,7 @@ export function Homepage() {
             },
             {
               key: "/evaluation",
-              label: "Evaluation",
+              label: "Selektion",
               icon: React.createElement(BarChartOutlined),
             },
           ]}
@@ -161,6 +162,7 @@ export function Homepage() {
                   logicFilteredData={logicFilteredData}
                   dataModelfilteredData={dataModelfilteredData}
                   showEvaluation={showDetailView}
+                  setShowHelp={setShowHelp}
                 />
               }
             />

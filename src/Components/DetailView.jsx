@@ -74,13 +74,57 @@ export default function DetailView(props) {
   const [filteredData, setFilteredData] = useState();
   const filter = () => {
     //create a string of props.record.ID
-
-    const filteredData2 = props.data.filter(
-      (item) => item.Einstiegspunkt === props.record.ID2
-    );
-    setFilteredData(filteredData2);
+    if (props.record.Erweiterungsoption === "Controller hinzufügen") {
+      if (props.uiType === "SAPUI5") {
+        const filteredData2 = props.data.filter(
+          (item) => item.Einstiegspunkt === "DUMMY"
+        );
+        setFilteredData(filteredData2);
+      }
+      if (props.uiType === "FE") {
+        if (props.floorplan === "Object Page") {
+          const filteredData2 = props.data.filter(
+            (item) =>
+              item.Einstiegspunkt === props.record.ID2 &&
+              (item.UI === "FE" || item.UI === "NR" || item.UI === "FE-Obj")
+          );
+          setFilteredData(filteredData2);
+        }
+        if (
+          props.floorplan === "List Report" ||
+          props.floorplan === "Analytical List Page"
+        ) {
+          const filteredData2 = props.data.filter(
+            (item) =>
+              item.Einstiegspunkt === props.record.ID2 &&
+              (item.UI === "FE" ||
+                item.UI === "NR" ||
+                item.UI === "FE-ListR-Analytic")
+          );
+          setFilteredData(filteredData2);
+        }
+        if (props.floorplan === "Overview Page") {
+          const filteredData2 = props.data.filter(
+            (item) =>
+              item.Einstiegspunkt === props.record.ID2 &&
+              (item.UI === "FE" || item.UI === "NR" || item.UI === "FE-Overv")
+          );
+          setFilteredData(filteredData2);
+        }
+        if (props.floorplan === "Worklist") {
+          const filteredData2 = props.data.filter(
+            (item) => item.Einstiegspunkt === "DUMMY"
+          );
+          setFilteredData(filteredData2);
+        }
+      }
+    } else {
+      const filteredData2 = props.data.filter(
+        (item) => item.Einstiegspunkt === props.record.ID2
+      );
+      setFilteredData(filteredData2);
+    }
   };
-
   useEffect(() => {
     filter();
   }, []);
@@ -99,7 +143,7 @@ export default function DetailView(props) {
       <p>Persona: {props.record.Persona}</p>
       {filteredData?.length > 0 && (
         <>
-          <h3>Aufbauende Erweiterungsoptionen</h3>
+          <h3>Aufbauende Erweiterungsoptionen ({filteredData.length})</h3>
           <Table
             columns={columns}
             pagination={false}

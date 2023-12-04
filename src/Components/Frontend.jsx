@@ -229,7 +229,7 @@ export function Frontend({
               }}
             >
               <p>
-                Für welchen Floorplan sollen Erweiterungen in betracht gezogen
+                Für welchen Floorplan sollen Erweiterungen in Betracht gezogen
                 werden?
               </p>
               <Radio.Group defaultValue={floorplan}>
@@ -275,7 +275,7 @@ export function Frontend({
                     width: "250px",
                   }}
                 >
-                  Weiter zur Backend Analyse
+                  Weiter zur Backend-Analyse
                 </Button>
               )}
             </div>
@@ -295,8 +295,8 @@ export function Frontend({
           <h3>Backend</h3>
           <p>
             Ist der Geschäftskontext der Anwendung im Erweiterungsregister
-            vorhanden? Wie sie herausfinden, ob der Geschäftskontext der
-            Anwendung im Erweiterungsregister vorhanden ist erfahren sie{" "}
+            vorhanden? Wie Sie herausfinden können, ob der Geschäftskontext der
+            Anwendung im Erweiterungsregister vorhanden ist, erfahren Sie{" "}
             <Link
               onClick={() => {
                 setShowHelp({ show: true, help: "context" });
@@ -316,15 +316,31 @@ export function Frontend({
           {businessContext !== "null" && (
             <div>
               <p>
-                Auf welcher Technologie basiert der OData Service der Anwendung?
-                Wenn die Anwendung mehrere OData Services verwendet bitte die
-                Frae für den OData Service verwenden, den die Erweiterung
-                betrifft
+                Auf welcher Technologie basiert der OData Service der Anwendung?{" "}
+              </p>
+
+              <p>
+                {" "}
+                Wenn die Anwendung mehr als einen OData-Service verwendet, geben
+                Sie bitte die die Technologie des Services an, der für die
+                Erweiterung der Fiori-Anwendung in Betracht gezogen wird. Wie
+                Sie herausfinden welche Daten ein OData-Service zur Verfügung
+                stellt, erfahren Sie{" "}
+                <Link
+                  onClick={() => {
+                    setShowHelp({ show: true, help: "odatacontent" });
+                  }}
+                >
+                  hier
+                </Link>
               </p>
 
               <Radio.Group defaultValue={oDataType}>
                 <Radio onChange={changeODataType} value={"SEGW"}>
-                  SAP Gateway OData Service
+                  Nicht CDS-basiert
+                </Radio>
+                <Radio onChange={changeODataType} value={"CDS"}>
+                  CDS (ohne ABAP-Framework)
                 </Radio>
                 <Radio onChange={changeODataType} value={"RAP"}>
                   CDS mit RAP
@@ -335,9 +351,18 @@ export function Frontend({
               </Radio.Group>
               <p>
                 Bitte wählen sie eine Option aus. Hilfe zur Beantwortung dieser
-                Frage finden sie <Link>hier</Link>
+                Frage finden Sie{" "}
+                <Link
+                  onClick={() => {
+                    setShowHelp({ show: true, help: "odata" });
+                  }}
+                >
+                  hier
+                </Link>
               </p>
-              {(oDataType === "SEGW" || oDataType === "BOPF") && (
+              {(oDataType === "SEGW" ||
+                oDataType === "BOPF" ||
+                oDataType === "CDS") && (
                 <div>
                   <Button
                     onClick={submitDescription}
@@ -364,8 +389,15 @@ export function Frontend({
                     </Radio>
                   </Radio.Group>
                   <p>
-                    Bitte wählen sie eine Option aus. Hilfe zur Beantwortung
-                    dieser Frage finden sie <Link>hier</Link>
+                    Bitte wählen Sie eine Option aus. Hilfe zur Beantwortung
+                    dieser Frage finden Sie{" "}
+                    <Link
+                      onClick={() => {
+                        setShowHelp({ show: true, help: "behavior" });
+                      }}
+                    >
+                      hier
+                    </Link>
                   </p>
                   {behavioAllowed !== "null" && (
                     <Button

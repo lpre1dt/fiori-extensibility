@@ -6,6 +6,10 @@ import SAPFlex from "../Hilfe/SAPFlex";
 import SyncViews from "../Hilfe/SyncViews";
 import Floorplan from "../Hilfe/Floorplan";
 import BusinessContext from "../Hilfe/BusinessContext";
+import ODataAnalyse from "../Hilfe/ODataAnalyse";
+import ODataContent from "../Hilfe/ODataContent";
+import Bewertungsmetriken from "../Hilfe/Bewertungsmetriken";
+import BehaviorCheck from "../Hilfe/BehaviorCheck";
 export default function Help({ showHelp, setShowHelp }) {
   if (showHelp?.show) {
     return (
@@ -20,6 +24,10 @@ export default function Help({ showHelp, setShowHelp }) {
           {showHelp.help === "sync" && <SyncViews />}
           {showHelp.help === "ui" && <UIType />}
           {showHelp.help === "context" && <BusinessContext />}
+          {showHelp.help === "odata" && <ODataAnalyse />}
+          {showHelp.help === "odatacontent" && <ODataContent />}
+          {showHelp.help === "bewertung" && <Bewertungsmetriken />}
+          {showHelp.help === "behavior" && <BehaviorCheck />}
         </div>
       </div>
     );

@@ -51,6 +51,12 @@ export function OverviewTable({
       );
       return filteredData;
     }
+    if (descriptionValues?.oDataType === "CDS") {
+      const filteredData = input.filter(
+        (item) => item.Backend === "CDS" || item.Backend === "NR"
+      );
+      return filteredData;
+    }
     if (descriptionValues?.oDataType === "RAP") {
       const filteredData = input.filter(
         (item) =>
@@ -62,7 +68,7 @@ export function OverviewTable({
         const filteredData2 = filteredData.filter(
           (item) =>
             item.Grundvorraussetzung !==
-            "In der Standard Behavior Definition muss im Kopf �extensible� stehen."
+            "In der Standard Behavior Definition muss im Kopf extensible stehen."
         );
         return filteredData2;
       }
@@ -118,9 +124,7 @@ export function OverviewTable({
         (item) =>
           item.Erweiterungsmöglichkeit === "Datenmodell 1" ||
           item.Erweiterungsmöglichkeit === "Datenmodell 1,2" ||
-          item.Erweiterungsmöglichkeit === "Datenmodell 2,3" ||
-          item.Erweiterungsmöglichkeit === "Datenmodell 2" ||
-          item.Erweiterungsmöglichkeit === "Datenmodell 3"
+          item.Erweiterungsmöglichkeit === "Datenmodell 1,2,3"
       );
       return filteredData;
     }
@@ -390,7 +394,7 @@ export function OverviewTable({
   if (showDetailView) {
     return (
       <div>
-        <h2>Mögliche Erweiterungen für die jewiligen Anforderungen</h2>
+        <h2>Mögliche Erweiterungen für die jeweiligen Anforderungen</h2>
         {anforderungsFilter?.uiComplexity !== 0 && (
           <div>
             <h3>UI Erweiterungsoptionen ({uiFilteredData?.length})</h3>
@@ -440,7 +444,12 @@ export function OverviewTable({
                       margin: 0,
                     }}
                   >
-                    <DetailView record={record} data={data} />
+                    <DetailView
+                      uiType={descriptionValues?.uiType}
+                      floorplan={descriptionValues?.floorplan}
+                      record={record}
+                      data={data}
+                    />
                   </p>
                 ),
 
