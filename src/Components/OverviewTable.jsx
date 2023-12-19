@@ -24,7 +24,7 @@ export function OverviewTable({
       const filteredData = input.filter(
         (item) =>
           item.Grundvorraussetzung !==
-          "Geschäftskontext der App ist im Erweiterungsregister vorhanden"
+          "Geschäftskontext im Erweiterungsregister"
       );
       return filteredData;
     }
@@ -38,7 +38,7 @@ export function OverviewTable({
     //Filterkonditionen für SEGW
     if (descriptionValues?.oDataType === "SEGW") {
       const filteredData = input.filter(
-        (item) => item.Backend === "SEGW OData" || item.Backend === "NR"
+        (item) => item.Backend === "No-CDS" || item.Backend === "NR"
       );
       return filteredData;
     }
@@ -66,9 +66,7 @@ export function OverviewTable({
       );
       if (descriptionValues?.behavioAllowed === "no") {
         const filteredData2 = filteredData.filter(
-          (item) =>
-            item.Grundvorraussetzung !==
-            "In der Standard Behavior Definition muss im Kopf extensible stehen."
+          (item) => item.Grundvorraussetzung !== "BDEF extensible"
         );
         return filteredData2;
       }

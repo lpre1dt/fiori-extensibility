@@ -14,7 +14,7 @@ export default function BehaviorCheck() {
         Zudem müssen alle verfügbaren Änderungsoptionen manuell innerhalb der
         geschweiften Klammern erlaubt sein.
       </p>
-      <Image src="/RAP_Extensible.png" />
+      <Image src="/RAP_Extensible.png" alt="RAP Extensible" />
     </div>
   );
 }

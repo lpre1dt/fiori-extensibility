@@ -34,37 +34,28 @@ export function Anforderungen({
   };
   const uiComplexityHelper = () => {
     if (uiComplexity === 0) {
-      return <p>Keine Erweiterungen oder Änderungen and der UI</p>;
+      return <p>Keine Erweiterungen oder Änderungen and der UI.</p>;
     }
     if (uiComplexity === 1) {
-      return <p>Ansicht verändern oder personaliseren für Endbenutzer</p>;
+      return <p>Ansicht verändern, Tabellenspalten und Filter anpassen.</p>;
     }
     if (uiComplexity === 2) {
-      return (
-        <p>
-          Größere UI anpassungen vornhemen, Elemente verschieben, einblenden,
-          ausblenden
-        </p>
-      );
+      return <p>Visuelle Anpassung, Inhalte entfernen, verschieben, ändern.</p>;
     }
     if (uiComplexity === 3) {
-      return (
-        <p>
-          Komplette UI anpassen, neue Elemente hinzufügen, neue Seiten erstellen
-        </p>
-      );
+      return <p>Visuelle Erweiterung, neue Inhalte hinzufügen.</p>;
     }
     return <p>hoch</p>;
   };
   const logicComplexityHelper = () => {
     if (logicComplexity === 0) {
-      return <p>Keine Erweiterungen oder Änderungen and der Logik</p>;
+      return <p>Keine Erweiterungen oder Änderungen and der Logik.</p>;
     }
     if (logicComplexity === 1) {
-      return <p>Bestehende Logik anpassen</p>;
+      return <p>Bestehende Logik anpassen.</p>;
     }
     if (logicComplexity === 2) {
-      return <p>Neue Logik hinzufügen</p>;
+      return <p>Neue Logik hinzufügen.</p>;
     }
   };
   const backendComplexityHelper = () => {
@@ -72,23 +63,23 @@ export function Anforderungen({
       return (
         <p>
           Keine Erweiterungen am Datemodell benötigte daten befinden sich
-          bereits im bestehenden Datenmodell
+          bereits im bestehenden Datenmodell.
         </p>
       );
     }
     if (backendComplexity === 1) {
       return (
         <p>
-          Felder zum Datenmodell hinzufügen, die bereits im S/4HANA System
-          vorhanden sind
+          Felder zum bestehenden Datenmodell hinzufügen (bereits in S/4HANA)
+          vorhanden.
         </p>
       );
     }
     if (backendComplexity === 2) {
       return (
         <p>
-          Felder zum Datenmodell hinzufügen, die nicht im S/4HANA System
-          vorhanden sind und neu angelegt werden müssen.
+          Felder zum bestehenden Datenmodell hinzufügen (noch nicht in S/4HANA)
+          vorhanden.
         </p>
       );
     }
@@ -162,7 +153,7 @@ export function Anforderungen({
               <h3>Erweiterungen der Logik</h3>
               <p>
                 {" "}
-                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
+                Welcher Anforderungsart lässt sich die gewünschte Erweiterung
                 bezogen auf die Logik zuordnen?
               </p>
               Stufe: {logicComplexity}
