@@ -337,7 +337,7 @@ export function OverviewTable({
           {text === "Implizit" ? (
             <p style={{ color: "green" }}>{text}</p>
           ) : (
-            <Tooltip title="Diese Erweiterungsoption explizit. Es muss im Einzelfall geprüft werden, ob sie für die Fiori-Anwendung vorhanden ist">
+            <Tooltip title="Diese Erweiterungsoption explizit. Es muss im Einzelfall geprüft werden, ob sie für die Fiori-Anwendung vorhanden ist.">
               <p style={{ color: "red" }}>{text}</p>
             </Tooltip>
           )}

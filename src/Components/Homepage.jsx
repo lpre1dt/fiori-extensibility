@@ -13,8 +13,7 @@ import { Layout, Menu, theme, Drawer } from "antd";
 import { OverviewTable } from "./OverviewTable";
 import { Anforderungen } from "./Anforderungen";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { Frontend } from "./Frontend";
-import { Backend } from "./Backend";
+import { Anwendung } from "./Anwendung";
 import Bewertung from "./Bewertung";
 import Startseite from "./Startseite";
 import Help from "./Help";
@@ -135,7 +134,7 @@ export function Homepage() {
             <Route
               path="/beschreibung"
               element={
-                <Frontend
+                <Anwendung
                   setDescriptionValues={setDescriptionValues}
                   descriptionValues={descriptionValues}
                   setShowTable={setShowTable}
@@ -145,15 +144,7 @@ export function Homepage() {
                 />
               }
             />
-            <Route
-              path="/backend"
-              element={
-                <Backend
-                  backendValues={backendValues}
-                  setBackendValues={setBackenValues}
-                />
-              }
-            />
+
             <Route
               path="/evaluation"
               element={
