@@ -67,13 +67,10 @@ export default function DetailView(props) {
       key: "Umsatzung",
       width: 150,
     },
-
-    // Weitere Spalten hinzufügen und die Breiten nach Bedarf anpassen
   ];
 
   const [filteredData, setFilteredData] = useState();
   const filter = () => {
-    //create a string of props.record.ID
     if (props.record.Erweiterungsoption === "Controller hinzufügen") {
       if (props.uiType === "SAPUI5") {
         const filteredData2 = props.data.filter(

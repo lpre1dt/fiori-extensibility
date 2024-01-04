@@ -1,6 +1,4 @@
-import { Button } from "antd";
 import React from "react";
-import { CloseOutlined } from "@ant-design/icons";
 import UIType from "../Hilfe/UIType";
 import SAPFlex from "../Hilfe/SAPFlex";
 import SyncViews from "../Hilfe/SyncViews";

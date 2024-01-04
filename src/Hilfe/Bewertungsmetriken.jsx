@@ -71,23 +71,23 @@ export default function Bewertungsmetriken() {
   const data2 = [
     {
       Ausprägung: "UI 1",
-      Beschreibung: "Ansicht verändern, Tabellenspalten und Filter anpassen",
+      Beschreibung: "Ansicht verändern, Tabellenspalten und Filter anpassen.",
       Wert: 1,
     },
     {
       Ausprägung: "UI 2",
-      Beschreibung: "Visuelle Anpassung, Inhalte entfernen, verschieben",
+      Beschreibung: "Visuelle Anpassung, Inhalte entfernen, verschieben.",
       Wert: 2,
     },
     {
       Ausprägung: "UI 3",
-      Beschreibung: "Visuelle Erweiterung, Inhalte hinzufügen",
+      Beschreibung: "Visuelle Erweiterung, Inhalte hinzufügen.",
       Wert: 3,
     },
     {
       Ausprägung: "Logik 1",
       Beschreibung:
-        "Logikanpassung, Erweiterungen die in die bestehende Logik eingreifen",
+        "Logikanpassung, Erweiterungen die in die bestehende Logik eingreifen.",
       Wert: 3,
     },
     {
@@ -99,13 +99,13 @@ export default function Bewertungsmetriken() {
     {
       Ausprägung: "Datenmodell 1",
       Beschreibung:
-        "Felder zum bestehenden Datenmodell hinzufügen (bereits in S/4HANA vorhanden)",
+        "Felder zum bestehenden Datenmodell hinzufügen (bereits in S/4HANA vorhanden).",
       Wert: 1,
     },
     {
       Ausprägung: "Datenmodell 2",
       Beschreibung:
-        "Felder zum bestehenden Datenmodell hinzufügen (noch nicht in S/4HANA vorhanden)",
+        "Felder zum bestehenden Datenmodell hinzufügen (noch nicht in S/4HANA vorhanden).",
       Wert: 2,
     },
     {

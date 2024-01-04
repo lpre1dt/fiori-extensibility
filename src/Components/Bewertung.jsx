@@ -177,7 +177,7 @@ export default function Bewertung({
       >
         <h2>Bewertete Erweiterungsoption</h2>
         <p>
-          Bitte führen sie zuerst die Beschreibungsphase und die Beschreibung
+          Bitte führen Sie zuerst die Beschreibungsphase und die Beschreibung
           der Anforderungen durch.
         </p>
         <Empty
