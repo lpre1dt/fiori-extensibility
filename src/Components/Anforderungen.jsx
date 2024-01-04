@@ -14,11 +14,11 @@ export function Anforderungen({
   showDetailView,
 }) {
   const [workOnUI, setWorkOnUI] = useState(true);
-  const [workOnLogic, setWorkOnLogic] = useState(true); // [0, 10
+  const [workOnLogic, setWorkOnLogic] = useState(true);
   const [workOnBackend, setWorkOnBackend] = useState(true);
-  const [uiComplexity, setUiComplexity] = useState(0); // [0, 10
-  const [logicComplexity, setLogicComplexity] = useState(0); // [0, 10
-  const [backendComplexity, setBackendComplexity] = useState(0); // [0, 10
+  const [uiComplexity, setUiComplexity] = useState(0);
+  const [logicComplexity, setLogicComplexity] = useState(0);
+  const [backendComplexity, setBackendComplexity] = useState(0);
 
   const handleUiComplexity = (value) => {
     console.log(value);

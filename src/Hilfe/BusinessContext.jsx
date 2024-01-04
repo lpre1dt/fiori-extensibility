@@ -3,6 +3,7 @@ import { Input, Button, message, Image } from "antd";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 export default function BusinessContext() {
+  //BC
   const [code, setCode] = useState(
     `SELECT
     cfd_w_bus_ctxt_t~business_context AS businesscontext,

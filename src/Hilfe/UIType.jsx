@@ -3,6 +3,7 @@ import { Image } from "antd";
 import { Link } from "react-router-dom";
 
 export default function UIType() {
+  //UIType
   return (
     <div>
       <h3>Wie wird der UI-Typ einer Fiori-Anwendung identifiziert?</h3>

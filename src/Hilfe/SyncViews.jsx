@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 
 export default function SyncViews() {
+  //SyncViews
   return (
     <div>
       <h3>
