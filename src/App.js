@@ -1,8 +1,11 @@
-import { Image } from "antd";
+import { Image, Select } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Homepage } from "./Components/Homepage";
+import { useState } from "react";
+import React from "react";
 
 function App() {
+  const [language, setLanguage] = useState("en");
   return (
     <div className="App">
       <div
@@ -25,6 +28,24 @@ function App() {
         >
           Fiori Extensibility Compass
         </Header>
+        <div
+          style={{
+            marginLeft: "auto",
+            fontSize: "20px",
+            marginRight: "20px",
+          }}
+        >
+          <Select
+            onChange={(e) => {
+              setLanguage(e);
+            }}
+            defaultValue={language}
+            style={{ width: 70 }}
+          >
+            <Select.Option value="en">EN</Select.Option>
+            <Select.Option value="de">DE</Select.Option>
+          </Select>
+        </div>
       </div>
 
       <Homepage />

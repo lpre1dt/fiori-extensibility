@@ -8,6 +8,7 @@ import ODataAnalyse from "../Hilfe/ODataAnalyse";
 import ODataContent from "../Hilfe/ODataContent";
 import Bewertungsmetriken from "../Hilfe/Bewertungsmetriken";
 import BehaviorCheck from "../Hilfe/BehaviorCheck";
+import SelectionHelp from "../Hilfe/SelectionHelp";
 export default function Help({ showHelp, setShowHelp }) {
   if (showHelp?.show) {
     return (
@@ -26,6 +27,7 @@ export default function Help({ showHelp, setShowHelp }) {
           {showHelp.help === "odatacontent" && <ODataContent />}
           {showHelp.help === "bewertung" && <Bewertungsmetriken />}
           {showHelp.help === "behavior" && <BehaviorCheck />}
+          {showHelp.help === "selection" && <SelectionHelp />}
         </div>
       </div>
     );

@@ -57,6 +57,16 @@ export default function Bewertung({
             hier
           </Link>
         </p>
+        <p>
+          Hilfestellungen zur Selektion der Erweiterungsoptionen finden Sie{" "}
+          <Link
+            onClick={() => {
+              setShowHelp({ show: true, help: "selection" });
+            }}
+          >
+            hier
+          </Link>
+        </p>
 
         {uiFilteredData && (
           <div>

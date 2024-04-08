@@ -50,13 +50,12 @@ export default function Startseite() {
       <h3>Einführungsvideo</h3>
       <p>
         Schauen Sie sich bitte vor der ersten Durchführung das folgende Video
-        an: (wenn ich machnmal etwas zu langsam rede kann man das Video auch auf
-        2x Geschwindigkeit abspielen)
+        an:
       </p>
       <div
         style={{
           display: "flex",
-          justifyContent: "center",
+          //justifyContent: "center",
         }}
       >
         <iframe
@@ -65,16 +64,6 @@ export default function Startseite() {
           height="480"
           allow="autoplay"
         ></iframe>
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSeIBCP3x24DbEReed4OhDNhsFaDs2gsB1xuH-8aaWb3izj6Sw/viewform?embedded=true"
-          width="640"
-          height="480"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-        >
-          Wird geladen…
-        </iframe>
       </div>
       <h3> Datengrundlage</h3>
       <p>

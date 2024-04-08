@@ -62,7 +62,7 @@ export function Anforderungen({
     if (backendComplexity === 0) {
       return (
         <p>
-          Keine Erweiterungen am Datemodell benötigte daten befinden sich
+          Keine Erweiterungen am Datemodell - benötigte Daten befinden sich
           bereits im bestehenden Datenmodell.
         </p>
       );
@@ -87,7 +87,7 @@ export function Anforderungen({
       return (
         <p>
           Das bestehende Datenmodell wird grundlegend erweitert und zum Beispiel
-          neune Knoten, Entitäten angelegt.
+          neue Knoten, Entitäten angelegt.
         </p>
       );
     }
