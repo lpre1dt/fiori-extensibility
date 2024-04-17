@@ -3,8 +3,10 @@ import { Header } from "antd/es/layout/layout";
 import { Homepage } from "./Components/Homepage";
 import { useState } from "react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { i18n } = useTranslation();
   const [language, setLanguage] = useState("en");
   return (
     <div className="App">
@@ -38,6 +40,7 @@ function App() {
           <Select
             onChange={(e) => {
               setLanguage(e);
+              i18n.changeLanguage(e);
             }}
             defaultValue={language}
             style={{ width: 70 }}

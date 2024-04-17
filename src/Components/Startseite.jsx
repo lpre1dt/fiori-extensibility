@@ -1,8 +1,10 @@
 import { Button, Radio } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Startseite() {
   //Startseite
+  const { t } = useTranslation();
   return (
     <div
       style={{
@@ -11,47 +13,26 @@ export default function Startseite() {
         background: "white",
       }}
     >
-      <h2>
-        Strukturiert vorgehen bei der Erweiterung von SAP Fiori-Anwendungen
-      </h2>
+      <h2>{t("mainHeader")}</h2>
+      <p>{t("mainText1")}</p>
       <p>
-        Diese Webanwendung soll Ihnen dabei helfen, die richtige
-        Erweiterungsoption für Ihre SAP Fiori-Anwendung zu finden. Dazu können
-        Sie die verschiedenen Erweiterungsoptionen auswählen und erhalten eine
-        Übersicht über die Erweiterungsmöglichkeiten. Die Webanwendung ist Teil
-        des Konzepts zum strukturierten Vorgehen bei der Erweiterung von SAP
-        Fiori-Anwendungen. Dieses Konzept besteht aus einer Analyse der
-        Anwendung, einer Beschreibung der Anwendung und einer Selektion der
-        verfügbaren Erweiterungsoptionen.
+        {t("mainText2")} <a href="mailto:lukas.preidt@mhp.com">Lukas Preidt</a>.
       </p>
-      <p>
-        Um Zugriff auf das gesamte Konzept zu erhalten, wenden Sie sich bitte
-        per E-Mail an <a href="mailto:lukas.preidt@mhp.com">Lukas Preidt</a>.
-      </p>
-      <p>Die Webanwendung ist in drei Bereiche unterteilt:</p>
+      <p>{t("mainText3")}</p>
       <ul>
         <li>
-          <b>Fiori-Anwendung:</b> Hier können Sie Frontend und Backend der
-          Fiori-Anwendung beschreiben. Zur Beantwortung der Fragen werden Ihnen
-          Hilfestellungen angeboten.
+          <b>{t("fioriapplication")}:</b> {t("mainText4")}.
         </li>
         <li>
-          <b>Anforderungen:</b> Hier können Sie die Erweiterungsanforderung
-          beschreiben, die Sie für Ihre Fiori-Anwendung implementieren möchten.
+          <b>{t("requirements")}:</b> {t("mainText5")}
         </li>
         <li>
-          <b>Selektion:</b> Hier werden die verfügbaren Erweiterungsoptionen
-          visualisiert, und Sie können die für Sie passende Option auswählen.
+          <b>{t("selection")}:</b> {t("mainText6")}
         </li>
       </ul>
-      <p>
-        Sie können die verschiedenen Bereiche über die Navigation erreichen.
-      </p>
-      <h3>Einführungsvideo</h3>
-      <p>
-        Schauen Sie sich bitte vor der ersten Durchführung das folgende Video
-        an:
-      </p>
+      <p>{t("mainText7")}</p>
+      <h3>{t("mainText8")}</h3>
+      <p>{t("mainText9")}</p>
       <div
         style={{
           display: "flex",
@@ -65,11 +46,8 @@ export default function Startseite() {
           allow="autoplay"
         ></iframe>
       </div>
-      <h3> Datengrundlage</h3>
-      <p>
-        Als Datengrundlage für die Erweiterungsoptionen dient die folgende
-        CSV-Datei.
-      </p>
+      <h3>{t("mainText10")} </h3>
+      <p>{t("mainText11")}</p>
       <Button
         download="/ErweiterungsoptionenDB.csv"
         type="primary"

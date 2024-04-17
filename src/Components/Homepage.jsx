@@ -21,10 +21,12 @@ import { findDOMNode } from "react-dom";
 import UIType from "../Hilfe/UIType";
 import SAPFlex from "../Hilfe/SAPFlex";
 import SyncViews from "../Hilfe/SyncViews";
+import { useTranslation } from "react-i18next";
 const { Header, Content, Footer, Sider } = Layout;
 
 export function Homepage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [anforderungsFilter, setAnforderungsfilter] = useState();
   const [showHelp, setShowHelp] = useState(false);
@@ -80,23 +82,23 @@ export function Homepage() {
           items={[
             {
               key: "/",
-              label: "Startseite",
+              label: <p>{t("landingpage")}</p>,
               icon: React.createElement(DashboardOutlined),
             },
             {
               key: "/beschreibung",
-              label: "Fiori-Anwendung",
+              label: t("fioriapplication"),
               icon: React.createElement(DesktopOutlined),
             },
 
             {
               key: "/anforderungen",
-              label: "Anforderungen",
+              label: t("requirements"),
               icon: React.createElement(UnorderedListOutlined),
             },
             {
               key: "/evaluation",
-              label: "Selektion",
+              label: t("selection"),
               icon: React.createElement(BarChartOutlined),
             },
           ]}

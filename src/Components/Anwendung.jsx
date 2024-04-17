@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { DatabaseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export function Anwendung({
   descriptionValues,
@@ -18,6 +19,7 @@ export function Anwendung({
     navigate("/hilfe");
   };
   const [frontend, setFrontend] = useState(true);
+  const { t } = useTranslation();
 
   const [uiType, setUiType] = useState("null");
   const [floorplan, setFloorplan] = useState("null");
@@ -109,7 +111,7 @@ export function Anwendung({
         width: "100%",
       }}
     >
-      <h2>Beschreibungsphase</h2>
+      <h2>{t("applicationText1")}</h2>
 
       {frontend === true && (
         <div style={{}}>
@@ -127,60 +129,59 @@ export function Anwendung({
           {uiType === "null" && (
             <div>
               <p>
-                Bitte wählen sie eine Option aus. Hilfe zur Beantwortung dieser
-                Frage finden sie{" "}
+                {t("chooseOption")}
                 <Link
                   onClick={() => {
                     setShowHelp({ show: true, help: "ui" });
                   }}
                 >
-                  hier
+                  {t("here")}
                 </Link>
               </p>
             </div>
           )}
           {uiType === "SAPUI5" && (
             <div>
+              <p>{t("applicationText12")} </p>
               <p>
-                Erfüllt die Anwendung die Bedingungen für SAPUI5 Flexibility?{" "}
-                Wie überprüft werden kann, ob die Bedingungen für SAPUI5
-                Flexibility erfüllt sind erfahren Sie{" "}
+                {t("sapUi5Flex")}
                 <Link
                   onClick={() => {
                     setShowHelp({ show: true, help: "flex" });
                   }}
                 >
-                  hier
+                  {t("here")}
                 </Link>
               </p>
               <Radio.Group defaultValue={flexEabled}>
                 <Radio onChange={changeFlex} value={"yes"}>
-                  Ja
+                  {t("ja")}
                 </Radio>
                 <Radio onChange={changeFlex} value={"no"}>
-                  Nein
+                  {t("nein")}
                 </Radio>
               </Radio.Group>
               <p></p>
               {flexEabled === "yes" && (
                 <div>
+                  <p>{t("applicationText13")} </p>
                   <p>
-                    Enthält die Anwendung synchrone Views? Wie überprüft werden
-                    kann, ob die Anwendung synchrone Views enthält erfahren Sie{" "}
+                    {" "}
+                    {t("asyncViews")}
                     <Link
                       onClick={() => {
                         setShowHelp({ show: true, help: "sync" });
                       }}
                     >
-                      hier
+                      {t("here")}
                     </Link>
                   </p>
                   <Radio.Group defaultValue={syncEnabled}>
                     <Radio onChange={changeSync} value={"yes"}>
-                      Ja
+                      {t("ja")}
                     </Radio>
                     <Radio onChange={changeSync} value={"no"}>
-                      Nein
+                      {t("nein")}
                     </Radio>
                   </Radio.Group>
                   {syncEnabled !== "null" && (
@@ -196,7 +197,7 @@ export function Anwendung({
                           width: "250px",
                         }}
                       >
-                        Weiter zur Backend Analyse
+                        {t("toBackend")}
                       </Button>
                     </div>
                   )}
@@ -215,7 +216,7 @@ export function Anwendung({
                       width: "250px",
                     }}
                   >
-                    Weiter zur Backend Analyse
+                    {t("toBackend")}
                   </Button>
                 </div>
               )}
@@ -228,10 +229,7 @@ export function Anwendung({
                 display: "grid",
               }}
             >
-              <p>
-                Für welchen Floorplan sollen Erweiterungen in Betracht gezogen
-                werden?
-              </p>
+              <p>{t("floorPlan")}</p>
               <Radio.Group defaultValue={floorplan}>
                 <Radio onChange={handleFloorplan} value={"Object Page"}>
                   Object Page
@@ -254,13 +252,13 @@ export function Anwendung({
               </Radio.Group>
 
               <p>
-                Eine kurze Vorstellung der Fiori Elements Floorpläne finden Sie{" "}
+                {t("applicationText6")}{" "}
                 <Link
                   onClick={() => {
                     setShowHelp({ show: true, help: "floorplan" });
                   }}
                 >
-                  hier
+                  {t("here")}
                 </Link>
               </p>
               {floorplan !== "null" && (
@@ -275,7 +273,7 @@ export function Anwendung({
                     width: "250px",
                   }}
                 >
-                  Weiter zur Backend-Analyse
+                  {t("toBackend")}
                 </Button>
               )}
             </div>
@@ -284,7 +282,7 @@ export function Anwendung({
       )}
       {frontend === false && (
         <div>
-          Zurück zum{" "}
+          {t("backTo")}
           <Link
             onClick={() => {
               setFrontend(true);
@@ -293,71 +291,65 @@ export function Anwendung({
             Frontend
           </Link>
           <h3>Backend</h3>
+          <p>{t("applicationText14")}</p>
           <p>
-            Ist der Geschäftskontext der Anwendung im Erweiterungsregister
-            vorhanden? Wie Sie herausfinden können, ob der Geschäftskontext der
-            Anwendung im Erweiterungsregister vorhanden ist, erfahren Sie{" "}
+            {t("businessContext")}
             <Link
               onClick={() => {
                 setShowHelp({ show: true, help: "context" });
               }}
             >
-              hier
+              {t("here")}
             </Link>{" "}
+            .
           </p>
           <Radio.Group defaultValue={businessContext}>
             <Radio onChange={changeBuinessContext} value={"yes"}>
-              Ja
+              {t("ja")}
             </Radio>
             <Radio onChange={changeBuinessContext} value={"no"}>
-              Nein
+              {t("nein")}
             </Radio>
           </Radio.Group>
           {businessContext !== "null" && (
             <div>
-              <p>
-                Auf welcher Technologie basiert der OData Service der Anwendung?{" "}
-              </p>
+              <p>{t("applicationText15")}</p>
 
               <p>
                 {" "}
-                Wenn die Anwendung mehr als einen OData-Service verwendet, geben
-                Sie bitte die die Technologie des Services an, der für die
-                Erweiterung der Fiori-Anwendung in Betracht gezogen wird. Wie
-                Sie herausfinden welche Daten ein OData-Service zur Verfügung
-                stellt, erfahren Sie{" "}
+                {t("multipleOData")}
                 <Link
                   onClick={() => {
                     setShowHelp({ show: true, help: "odatacontent" });
                   }}
                 >
-                  hier
+                  {t("here")}
                 </Link>
+                .
               </p>
 
               <Radio.Group defaultValue={oDataType}>
                 <Radio onChange={changeODataType} value={"SEGW"}>
-                  Nicht CDS-basiert
+                  {t("noCDS")}
                 </Radio>
                 <Radio onChange={changeODataType} value={"CDS"}>
-                  CDS (ohne ABAP-Framework)
+                  {t("cds")}
                 </Radio>
                 <Radio onChange={changeODataType} value={"RAP"}>
-                  CDS mit RAP
+                  {t("cdsRAP")}
                 </Radio>
                 <Radio onChange={changeODataType} value={"BOPF"}>
-                  CDS mit BOPF
+                  {t("cdsBOPF")}
                 </Radio>
               </Radio.Group>
               <p>
-                Bitte wählen sie eine Option aus. Hilfe zur Beantwortung dieser
-                Frage finden Sie{" "}
+                {t("chooseOption")}
                 <Link
                   onClick={() => {
                     setShowHelp({ show: true, help: "odata" });
                   }}
                 >
-                  hier
+                  {t("here")}
                 </Link>
               </p>
               {(oDataType === "SEGW" ||
@@ -369,34 +361,29 @@ export function Anwendung({
                     type="primary"
                     style={{ marginTop: "20px" }}
                   >
-                    Beschreibung abschließen
+                    {t("applicationText11")}
                   </Button>
                 </div>
               )}
               {oDataType === "RAP" && (
                 <div>
-                  <p>
-                    {" "}
-                    Sind für den RAP-OData-Service Behavior-Erweiterungen
-                    erlaubt?
-                  </p>
+                  <p> {t("applicationText16")}</p>
                   <Radio.Group defaultValue={behavioAllowed}>
                     <Radio onChange={changeBehaviorAllowed} value={"yes"}>
-                      Ja
+                      {t("ja")}
                     </Radio>
                     <Radio onChange={changeBehaviorAllowed} value={"no"}>
-                      Nein
+                      {t("nein")}
                     </Radio>
                   </Radio.Group>
                   <p>
-                    Bitte wählen Sie eine Option aus. Hilfe zur Beantwortung
-                    dieser Frage finden Sie{" "}
+                    {t("chooseOption")}
                     <Link
                       onClick={() => {
                         setShowHelp({ show: true, help: "behavior" });
                       }}
                     >
-                      hier
+                      {t("here")}
                     </Link>
                   </p>
                   {behavioAllowed !== "null" && (
@@ -405,7 +392,7 @@ export function Anwendung({
                       type="primary"
                       style={{ marginTop: "20px" }}
                     >
-                      Beschreibung abschließen
+                      {t("applicationText11")}
                     </Button>
                   )}
                 </div>

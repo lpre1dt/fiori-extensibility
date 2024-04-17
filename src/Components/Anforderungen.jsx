@@ -3,6 +3,7 @@ import { Checkbox, Button, Slider, Select } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { LockOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 export function Anforderungen({
   anforderungsFilter,
@@ -19,6 +20,7 @@ export function Anforderungen({
   const [uiComplexity, setUiComplexity] = useState(0);
   const [logicComplexity, setLogicComplexity] = useState(0);
   const [backendComplexity, setBackendComplexity] = useState(0);
+  const { t } = useTranslation();
 
   const handleUiComplexity = (value) => {
     console.log(value);
@@ -34,62 +36,42 @@ export function Anforderungen({
   };
   const uiComplexityHelper = () => {
     if (uiComplexity === 0) {
-      return <p>Keine Erweiterungen oder Änderungen and der UI.</p>;
+      return <p>{t("ui0")}.</p>;
     }
     if (uiComplexity === 1) {
-      return <p>Ansicht verändern, Tabellenspalten und Filter anpassen.</p>;
+      return <p>{t("ui1")}</p>;
     }
     if (uiComplexity === 2) {
-      return <p>Visuelle Anpassung, Inhalte entfernen, verschieben, ändern.</p>;
+      return <p>{t("ui2")}</p>;
     }
     if (uiComplexity === 3) {
-      return <p>Visuelle Erweiterung, neue Inhalte hinzufügen.</p>;
+      return <p>{t("ui3")}</p>;
     }
     return <p>hoch</p>;
   };
   const logicComplexityHelper = () => {
     if (logicComplexity === 0) {
-      return <p>Keine Erweiterungen oder Änderungen and der Logik.</p>;
+      return <p>{t("logik0")}</p>;
     }
     if (logicComplexity === 1) {
-      return <p>Bestehende Logik anpassen.</p>;
+      return <p>{t("logik1")}</p>;
     }
     if (logicComplexity === 2) {
-      return <p>Neue Logik hinzufügen.</p>;
+      return <p>{t("logik2")}</p>;
     }
   };
   const backendComplexityHelper = () => {
     if (backendComplexity === 0) {
-      return (
-        <p>
-          Keine Erweiterungen am Datemodell - benötigte Daten befinden sich
-          bereits im bestehenden Datenmodell.
-        </p>
-      );
+      return <p>{t("backend0")}</p>;
     }
     if (backendComplexity === 1) {
-      return (
-        <p>
-          Felder zum bestehenden Datenmodell hinzufügen (bereits in S/4HANA)
-          vorhanden.
-        </p>
-      );
+      return <p>{t("backend1")}</p>;
     }
     if (backendComplexity === 2) {
-      return (
-        <p>
-          Felder zum bestehenden Datenmodell hinzufügen (noch nicht in S/4HANA)
-          vorhanden.
-        </p>
-      );
+      return <p>{t("backend2")}</p>;
     }
     if (backendComplexity === 3) {
-      return (
-        <p>
-          Das bestehende Datenmodell wird grundlegend erweitert und zum Beispiel
-          neue Knoten, Entitäten angelegt.
-        </p>
-      );
+      return <p>{t("backend3")}</p>;
     }
   };
   const submitValues = () => {
@@ -120,17 +102,13 @@ export function Anforderungen({
         }}
       >
         <div>
-          <h2> Anforderung der Erweiterung </h2>
+          <h2> {t("requiremetText1")}</h2>
 
           {workOnUI && (
             <div>
-              <h3>Erweiterungen der UI</h3>
-              <p>
-                {" "}
-                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
-                bezogen auf die UI zuordnen?
-              </p>
-              Stufe: {uiComplexity}
+              <h3>{t("requiremetText2")}</h3>
+              <p> {t("requiremetText5")}</p>
+              {t("stufe")}: {uiComplexity}
               <div
                 style={{
                   width: "250px",
@@ -150,13 +128,9 @@ export function Anforderungen({
           )}
           {workOnLogic && (
             <div>
-              <h3>Erweiterungen der Logik</h3>
-              <p>
-                {" "}
-                Welcher Anforderungsart lässt sich die gewünschte Erweiterung
-                bezogen auf die Logik zuordnen?
-              </p>
-              Stufe: {logicComplexity}
+              <h3>{t("requiremetText3")}</h3>
+              <p> {t("requiremetText6")}</p>
+              {t("stufe")}: {logicComplexity}
               <div
                 style={{
                   width: "250px",
@@ -165,11 +139,11 @@ export function Anforderungen({
                 <Select
                   defaultValue={logicComplexity}
                   onChange={handleLogicComplexity}
-                  style={{ width: "250px", marginTop: "20px" }}
+                  style={{ width: "300px", marginTop: "20px" }}
                   options={[
-                    { value: 0, label: "Keine Erweiterung der Logik" },
-                    { value: 1, label: "Logik anpassen" },
-                    { value: 2, label: "Logik erweitern" },
+                    { value: 0, label: <p>{t("noChanges")}</p> },
+                    { value: 1, label: <p>{t("changeLogic")}</p> },
+                    { value: 2, label: <p>{t("addLogic")}</p> },
                   ]}
                 />
               </div>
@@ -178,14 +152,9 @@ export function Anforderungen({
           )}
           {workOnBackend && (
             <div>
-              <h3>Erweiterungen des Datenmodells</h3>
-              <p>
-                {" "}
-                Welcher Komplexitätsstufe lässt sich die gewünschte Erweiterung
-                bezogen auf die Erweiterung des Datenmodells im Backend
-                zuordnen?
-              </p>
-              Stufe: {backendComplexity}
+              <h3>{t("requiremetText3")}</h3>
+              <p> {t("requiremetText7")}</p>
+              {t("stufe")}: {backendComplexity}
               <div
                 style={{
                   width: "250px",
@@ -202,7 +171,7 @@ export function Anforderungen({
               </div>
               {backendComplexityHelper(backendComplexity)}
               <Button type="primary" onClick={submitValues}>
-                Anforderungsbeschreibung abschließen
+                {t("finishRequirement")}
               </Button>
             </div>
           )}
@@ -221,8 +190,8 @@ export function Anforderungen({
         }}
       >
         <div>
-          <h2>Allgemeine Anforderung der Erweiterung </h2>
-          <p> Beschreibungsphase muss vollständig durchgeführt werden</p>
+          <h2>{t("requiremetText8")}</h2>
+          <p>{t("requiremetText9")}</p>
           <LockOutlined
             style={{
               fontSize: "100px",
