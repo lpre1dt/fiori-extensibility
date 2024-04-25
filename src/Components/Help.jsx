@@ -9,7 +9,9 @@ import ODataContent from "../Hilfe/ODataContent";
 import Bewertungsmetriken from "../Hilfe/Bewertungsmetriken";
 import BehaviorCheck from "../Hilfe/BehaviorCheck";
 import SelectionHelp from "../Hilfe/SelectionHelp";
+import { useTranslation } from "react-i18next";
 export default function Help({ showHelp, setShowHelp }) {
+  const { t } = useTranslation();
   if (showHelp?.show) {
     return (
       <div
@@ -17,6 +19,7 @@ export default function Help({ showHelp, setShowHelp }) {
           background: "white",
         }}
       >
+        <>{}</>
         <div style={{}}>
           {showHelp.help === "floorplan" && <Floorplan />}
           {showHelp.help === "flex" && <SAPFlex />}
