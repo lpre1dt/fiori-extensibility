@@ -5,6 +5,8 @@ import { useState } from "react";
 import { DatabaseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FioriAppDetector } from "./FioriAppDetector";
+import { Tabs } from 'antd';
 
 export function Anwendung({
   descriptionValues,
@@ -28,6 +30,7 @@ export function Anwendung({
   const [syncEnabled, setSyncEnabled] = useState("null");
   const [oDataType, setODataType] = useState("null");
   const [behavioAllowed, setBehaviorAllowed] = useState("null");
+
   const handleFinished = () => {
     setShowTable(true);
     setShowDetailView(false);
@@ -112,8 +115,18 @@ export function Anwendung({
       }}
     >
       <h2>{t("applicationText1")}</h2>
-
-      {frontend === true && (
+    
+    <Tabs items={[
+      {
+        key: 1,
+        label: "Wizard",
+        children: (<FioriAppDetector/>)
+      },
+      {
+      key: 2,
+      label: "Manuell",
+      children: ( <div>
+        {frontend === true && (
         <div style={{}}>
           <h3>Frontend</h3>
           <div>
@@ -280,7 +293,7 @@ export function Anwendung({
           )}
         </div>
       )}
-      {frontend === false && (
+      {frontend  === false && (
         <div>
           {t("backTo")}
           <Link
@@ -400,7 +413,12 @@ export function Anwendung({
             </div>
           )}
         </div>
-      )}
+
+      )}</div>),
+      }
+    ]} />
+
+     
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
   DesktopOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
+import { Tabs } from 'antd';
 import { Layout, Menu, theme, Drawer } from "antd";
 import { OverviewTable } from "./OverviewTable";
 import { Anforderungen } from "./Anforderungen";
@@ -123,6 +124,7 @@ export function Homepage() {
             <Route
               path="/anforderungen"
               element={
+                
                 <Anforderungen
                   anforderungsFilter={anforderungsFilter}
                   setAnforderungsfilter={setAnforderungsfilter}
@@ -136,6 +138,7 @@ export function Homepage() {
             <Route
               path="/beschreibung"
               element={
+                
                 <Anwendung
                   setDescriptionValues={setDescriptionValues}
                   descriptionValues={descriptionValues}
