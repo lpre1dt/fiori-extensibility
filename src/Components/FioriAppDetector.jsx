@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Input } from "antd";
+import { Button, Input, Select } from "antd";
 import React from "react";
 
 export function FioriAppDetector() {
@@ -10,30 +10,25 @@ export function FioriAppDetector() {
     // Dummy-Funktion zum Abrufen der App-Eigenschaften basierend auf dem Namen oder der ID
     const fetchAppProperties = async () => {
      
-      //fetch CSV ErweiterungsoptionenDB.csv
-      fetch("FioriApps.csv")
-      .then((response) => response.text())
-      .then((data) => {
-        let dataArr = data.split("\n");
-        let dataArr2 = [];
-        dataArr.forEach((element) => {
-          dataArr2.push(element.split(";"));
+      try {
+        const response = await fetch('FioriApps.csv');
+        const csvData = await response.text();
+        const rows = csvData.split('\n');
+        const headers = rows[0].split(';');
+  
+        const dataRows = rows.slice(1).map(row => {
+          const rowData = row.split(';');
+          return headers.reduce((obj, header, index) => {
+            obj[header] = rowData[index];
+            return obj;
+          }, {});
         });
-        const objectArray = [];
-        let obj = {};
-
-        for (let i = 1; i < dataArr2.length; i++) {
-          obj = {
-            AppId: dataArr2[i][0],
-            
-          };
-          objectArray.push(obj);
-        }
-
-        setData(objectArray);
-        console.log(data)
-        
-      });
+  
+        setData(dataRows);
+      } catch (error) {
+        console.error('Error fetching CSV:', error);
+      }
+    
     };
     useEffect(() => {
        fetchAppProperties()
@@ -43,14 +38,14 @@ export function FioriAppDetector() {
         <div style={{ display: "flex", maxWidth: "100%" }}>
             <div style={{ flex: "1", padding: "20px" }}>
                 <h2>App-Name oder App-ID eingeben:</h2>
-                <Input
-                    placeholder="Name oder App-ID"
-                    value={appName}
-                    onChange={(e) => setAppName(e.target.value)}
-                />
-                <Button type="primary" onClick={fetchAppProperties} style={{ marginTop: "10px" }}>
-                    Eigenschaften ermitteln
+  <Select style={{
+    width: "60%"
+  }}></Select>
+              
+                <Button  type="primary" onClick={fetchAppProperties} style={{ marginTop: "10px",    width: "40%" }}>
+                   Suchen
                 </Button>
+                
             </div>
             <div style={{ flex: "1", padding: "20px" }}>
                 {appProperties && (
