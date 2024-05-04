@@ -1,6 +1,7 @@
 import { Empty } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   ScatterChart,
   Scatter,
@@ -20,6 +21,7 @@ export default function Bewertung({
   dataModelfilteredData,
   setShowHelp,
 }) {
+  const { t } = useTranslation();
   if (showEvaluation) {
     return (
       <div
@@ -30,47 +32,40 @@ export default function Bewertung({
           borderRadius: "10px",
         }}
       >
-        <h2>Bewertete Erweiterungsoptionen </h2>
-        <h3>Bewertungskriterien</h3>
+        <h2>{t("evaluatedOptions")} </h2>
+        <h3>{t("evauluationCriteria")}</h3>
         <ul>
           <li>
-            <b>Aufwand (A in %):</b> Wie aufwändig ist die Erweiterungsoption zu
-            implementieren in % ausgehend von der Erweiterungsoption mit dem
-            höchsten Aufwand. ( 100% = Erweiterungsoption mit dem höchsten
-            Aufwand)
+            <b>{t("aufwand")} (A in %):</b> {t("effortText")}
           </li>
           <li>
-            <b>Flexibilität (F in %):</b> Wie flexibel ist die
-            Erweiterungsoption in % ausgehend von der Erweiterungsoption mit der
-            höchsten Flexibilität. ( 100% = Erweiterungsoption mit der höchsten
-            Flexibilität)
+            <b>{t("flexibilitaet")} (F in %):</b> {t("flexText")}
           </li>
         </ul>
         <p>
-          Informationen zu der genauen Berechnung von Flexibilität und Aufwand
-          finden Sie{" "}
+          {t("evaluationText2")}{" "}
           <Link
             onClick={() => {
               setShowHelp({ show: true, help: "bewertung" });
             }}
           >
-            hier
+            {t("here")}
           </Link>
         </p>
         <p>
-          Hilfestellungen zur Selektion der Erweiterungsoptionen finden Sie{" "}
+          {t("evaluationText3")}{" "}
           <Link
             onClick={() => {
               setShowHelp({ show: true, help: "selection" });
             }}
           >
-            hier
+            {t("here")}
           </Link>
         </p>
 
         {uiFilteredData && (
           <div>
-            <h3>Bewertete UI-Erweiterungsoptionen</h3>
+            <h3>UI: {t("evaluatedOptions")} </h3>
             <div style={{ height: "600px", width: "600px" }}>
               <ResponsiveContainer>
                 <ScatterChart
@@ -185,11 +180,8 @@ export default function Bewertung({
           borderRadius: "10px",
         }}
       >
-        <h2>Bewertete Erweiterungsoption</h2>
-        <p>
-          Bitte führen Sie zuerst die Beschreibungsphase und die Beschreibung
-          der Anforderungen durch.
-        </p>
+        <h2>{t("evaluatedOptions")}</h2>
+        <p>{t("evaluationHelp")}</p>
         <Empty
           style={{
             marginTop: "50px",

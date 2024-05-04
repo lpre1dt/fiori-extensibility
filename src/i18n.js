@@ -102,6 +102,46 @@ const resources = {
       changeLogic: "Adjust existing logic",
 
       stufe: "Level",
+
+      possibleExtensions: "Possible extensions",
+      erweiterungsOption: "Extension option",
+      type: "Type",
+
+      pleaseDescriptionPhase: "Please complete the description phase first",
+      description: "Description",
+      voraussetzung: "Precondition",
+      technische: "Technical implementation",
+      flexibilitaet: "Flexibility",
+      aufwand: "Effort",
+      possibleUI: "Possible UI extensions",
+      possibleLogic: "Possible logic extensions",
+      possibleDataModel: "Possible data model extensions",
+      minimumLevel:
+        "Extension option that at least meets the requirement level ",
+      possibleForReq: "Possible extensions for the respective requirements",
+      evaluatedOptions: "Evaluated extension options",
+      evauluationCriteria: "Evaluation criteria",
+      effortText:
+        "How effortful is the extension option to implement in % based on the extension option with the highest effort. ( 100% = extension option with the highest effort)",
+      evaluationText2:
+        "Information on the exact calculation of flexibility and effort can be found ",
+      evaluationText3: "Help for selecting the extension options can be found",
+      flexText:
+        "How flexible is the extension option in % based on the extension option with the highest flexibility. ( 100% = extension option with the highest flexibility)",
+      howODataHeader:
+        "How is it determined on which technology an OData service is based?",
+      howOData1:
+        "First you have to identify the OData service of your Fiori application. You get the name of the OData service from the",
+      howOData2:
+        "Some OData services can be identified by their naming convention. It is recommended to go through the following decision tree and assign one of the analysis profiles:",
+      overView: "Overview",
+      analyPro: "Analysis Profile",
+      zwischenschrritt: "Intermediate Step",
+      dataModel: "Data Model",
+      startsWith: "starts with",
+      help: "Help",
+      evaluationHelp:
+        "Please complete the description phase and the description of the requirements first.",
     },
   },
   de: {
@@ -207,7 +247,49 @@ const resources = {
       addLogic: "Neue Logik hinzufügen",
       changeLogic: "Bestehende Logik anpassen",
       stufe: "Stufe",
+      possibleExtensions: "Mögliche Erweiterungen",
+      pleaseDescriptionPhase:
+        "Bitte führen Sie erst die Beschreibungsphase durch vollständig durch",
+      erweiterungsOption: "Erweiterungsoption",
+      type: "Typ",
+
+      description: "Beschreibung",
+      voraussetzung: "Voraussetzung",
+      technische: "Technische Umsetzung",
+      flexibilitaet: "Flexibilität",
+      aufwand: "Aufwand",
+      possibleUI: "Mögliche Erweiterungen der UI",
+      possibleLogic: "Mögliche Erweiterungen der Logik",
+      possibleDataModel: "Mögliche Erweiterungen des Datenmodells",
+      minimumLevel:
+        " Erweiterunsgoption, die mindestens die Anforderungsstufe ",
+      possibleForReq: "Mögliche Erweiterungen für die jeweiligen Anforderungen",
+      evaluatedOptions: "Bewertete Erweiterungsoptionen",
+      evauluationCriteria: "Bewertungskriterien",
+      effortText:
+        "Wie aufwändig ist die Erweiterungsoption zu implementieren in % ausgehend von der Erweiterungsoption mit dem höchsten Aufwand. ( 100% = Erweiterungsoption mit dem höchsten Aufwand)",
     },
+    flexText:
+      "Wie flexibel ist die Erweiterungsoption in % ausgehend von der Erweiterungsoption mit der höchsten Flexibilität. ( 100% = Erweiterungsoption mit der höchsten Flexibilität)",
+    evaluationText2:
+      "Informationen zu der genauen Berechnung von Flexibilität und Aufwand finden Sie ",
+    evaluationText3:
+      "Hilfestellungen zur Selektion der Erweiterungsoptionen finden Sie",
+
+    howODataHeader:
+      "Wie wird bestimmt, auf welcher Technologie ein OData-Service basiert?",
+    howOData1:
+      "Zuerst müssen Sie den OData-Service Ihrer Fiori-Anwendung identifizieren. Den Namen des OData-Service erhalten Sie aus der",
+    howOData2:
+      "Einige OData-Services kann man über ihre Namenskonvention identifizieren. Es wird empfohlen, den folgenden Entscheidungsbaum zu durchlaufen und einem der Analyse-Profile zuzuordnen:",
+    overView: "Überblick",
+    analyPro: "Analyse-Profil",
+    zwischenschrritt: "Zwischenschritt",
+    dataModel: "Datenmodell",
+    startsWith: "beginnen mit",
+    help: "Hilfe",
+    evaluationHelp:
+      "Bitte führen Sie zuerst die Beschreibungsphase und die Beschreibung der Anforderungen durch.",
   },
 };
 

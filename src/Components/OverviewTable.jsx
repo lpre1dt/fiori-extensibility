@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Table, Input, Button, Space, Tooltip, Empty } from "antd";
 import Highlighter from "react-highlight-words";
 import DetailView from "./DetailView";
+import { useTranslation } from "react-i18next";
+import { render } from "@testing-library/react";
 
 export function OverviewTable({
   anforderungsFilter,
@@ -17,9 +19,11 @@ export function OverviewTable({
 }) {
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
+  const { t } = useTranslation();
 
   function filterBusinessContext(input) {
     //Filterkonditionen Geschäftskontext nicht vorhanden
+
     if (descriptionValues?.businessContext === "no") {
       const filteredData = input.filter(
         (item) =>
@@ -321,14 +325,14 @@ export function OverviewTable({
       width: 5,
     },
     {
-      title: "Erweiterungsoption",
+      title: "" + t("erweiterungsOption") + "",
       dataIndex: "Erweiterungsoption",
       key: "Erweiterungsoption",
       width: 100,
     },
 
     {
-      title: "Typ",
+      title: "" + t("typ") + "",
       dataIndex: "Typ",
       key: "Typ",
       width: 15,
@@ -346,32 +350,32 @@ export function OverviewTable({
     },
 
     {
-      title: "Beschreibung",
+      title: "" + t("description") + "",
       dataIndex: "Beschreibung",
       key: "Beschreibung",
       width: 300,
     },
     {
-      title: "Voraussetzung",
+      title: "" + t("voraussetzung") + "",
       dataIndex: "Lokalvoraussetzung",
       key: "Lokalvoraussetzung",
       width: 150,
     },
     {
-      title: "Technische Umsetzung",
+      title: "" + t("technische") + "",
       dataIndex: "Umsatzung",
       key: "Umsatzung",
       width: 150,
     },
     {
-      title: "Flexibilität",
+      title: "" + t("flexibilitaet") + "",
       dataIndex: "Flexibilitat",
       key: "Flexibilitat",
       width: 5,
       render: (text) => <>{text + "%"}</>,
     },
     {
-      title: "Aufwand",
+      title: "" + t("aufwand") + "",
       dataIndex: "Aufwand",
       key: "Aufwand",
       width: 5,
@@ -383,7 +387,9 @@ export function OverviewTable({
   if (showTable) {
     return (
       <div>
-        <h2>Mögliche Erweiterungen ({filteredData?.length})</h2>
+        <h2>
+          {t("possibleExtensions")} ({filteredData?.length})
+        </h2>
 
         <Table dataSource={filteredData} columns={columns} pagination={false} />
       </div>
@@ -392,13 +398,15 @@ export function OverviewTable({
   if (showDetailView) {
     return (
       <div>
-        <h2>Mögliche Erweiterungen für die jeweiligen Anforderungen</h2>
+        <h2>{t("possibleForReq")} </h2>
         {anforderungsFilter?.uiComplexity !== 0 && (
           <div>
-            <h3>UI Erweiterungsoptionen ({uiFilteredData?.length})</h3>
+            <h3>
+              {t("possibleUI")} ({uiFilteredData?.length})
+            </h3>
             <p>
               {" "}
-              UI-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
+              UI-{t("minimumLevel")}
               {anforderungsFilter?.uiComplexity}
             </p>
             <Table
@@ -424,11 +432,12 @@ export function OverviewTable({
         )}
         {anforderungsFilter?.logicComplexity !== 0 && (
           <div>
-            <h3>Logik Erweiterungsoptionen ({logicFilteredData?.length}) </h3>
+            <h3>
+              {t("possibleLogic")} ({logicFilteredData?.length}){" "}
+            </h3>
             <p>
               {" "}
-              Logik-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
-              {anforderungsFilter?.logicComplexity}
+              Logic-{t("minimumLevel")} {anforderungsFilter?.logicComplexity}
             </p>
             <Table
               rowKey={(record) => record.ID2}
@@ -459,11 +468,11 @@ export function OverviewTable({
         {anforderungsFilter?.backendComplexity !== 0 && (
           <div>
             <h3>
-              Datenmodell Erweiterungsoptionen ({dataModelfilteredData?.length}){" "}
+              {t("possibleDataModel")}({dataModelfilteredData?.length}){" "}
             </h3>
             <p>
               {" "}
-              Backend-Erweiterunsgoption, die mindestens die Anforderungsstufe{" "}
+              Backend {t("minimumLevel")}{" "}
               {anforderungsFilter?.backendComplexity}
             </p>
             <Table
@@ -492,11 +501,8 @@ export function OverviewTable({
   } else {
     return (
       <div>
-        <h2>Mögliche Erweiterungen</h2>
-        <p>
-          {" "}
-          Bitte führen Sie erst die Beschreibungsphase durch vollsrändig durch
-        </p>
+        <h2>{t("possibleExtensions")}</h2>
+        <p> {t("pleaseDescriptionPhase")}</p>
         <Empty
           style={{
             marginTop: "50px",
