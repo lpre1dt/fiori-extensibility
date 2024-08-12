@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UIType from "../Hilfe/UIType";
 import SAPFlex from "../Hilfe/SAPFlex";
 import SyncViews from "../Hilfe/SyncViews";
@@ -24,7 +24,7 @@ export default function Help({ showHelp, setShowHelp }) {
           {showHelp.help === "floorplan" && <Floorplan />}
           {showHelp.help === "flex" && <SAPFlex />}
           {showHelp.help === "sync" && <SyncViews />}
-          {showHelp.help === "ui" && <UIType />}
+          {showHelp.help === "ui" && <UIType showHelp />}
           {showHelp.help === "context" && <BusinessContext />}
           {showHelp.help === "odata" && <ODataAnalyse />}
           {showHelp.help === "odatacontent" && <ODataContent />}

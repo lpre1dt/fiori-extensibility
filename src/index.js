@@ -6,16 +6,19 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
+import { AuthProvider } from "./AuthProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <I18nextProvider i18n={i18n}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
-  </I18nextProvider>
+  <AuthProvider>
+    <I18nextProvider i18n={i18n}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+    </I18nextProvider>
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -9,7 +9,7 @@ import {
   DesktopOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
-import { Tabs } from 'antd';
+import { Tabs } from "antd";
 import { Layout, Menu, theme, Drawer } from "antd";
 import { OverviewTable } from "./OverviewTable";
 import { Anforderungen } from "./Anforderungen";
@@ -25,7 +25,7 @@ import SyncViews from "../Hilfe/SyncViews";
 import { useTranslation } from "react-i18next";
 const { Header, Content, Footer, Sider } = Layout;
 
-export function Homepage() {
+export function Homepage({ betaMode }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -124,7 +124,6 @@ export function Homepage() {
             <Route
               path="/anforderungen"
               element={
-                
                 <Anforderungen
                   anforderungsFilter={anforderungsFilter}
                   setAnforderungsfilter={setAnforderungsfilter}
@@ -138,8 +137,8 @@ export function Homepage() {
             <Route
               path="/beschreibung"
               element={
-                
                 <Anwendung
+                  betaMode={betaMode}
                   setDescriptionValues={setDescriptionValues}
                   descriptionValues={descriptionValues}
                   setShowTable={setShowTable}

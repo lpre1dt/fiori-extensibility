@@ -140,6 +140,7 @@ const resources = {
       dataModel: "Data Model",
       startsWith: "starts with",
       help: "Help",
+      uiDefine: "How to identify the ui-type of an Fiori-App:",
       evaluationHelp:
         "Please complete the description phase and the description of the requirements first.",
     },
@@ -288,6 +289,7 @@ const resources = {
     dataModel: "Datenmodell",
     startsWith: "beginnen mit",
     help: "Hilfe",
+    uiDefine: "Wie wird der UI-Typ einer Fiori-App identifziert?",
     evaluationHelp:
       "Bitte führen Sie zuerst die Beschreibungsphase und die Beschreibung der Anforderungen durch.",
   },
@@ -297,8 +299,8 @@ i18n
   .use(initReactI18next) // bind i18n to react
   .init({
     resources,
-    lng: "en", // Standard-Sprache
-    fallbackLng: "en", // Fallback-Sprache
+    lng: "de", // Standard-Sprache
+    fallbackLng: "de", // Fallback-Sprache
     interpolation: {
       escapeValue: false, // Kein Escaping notwendig
     },

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "antd";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-export default function UIType() {
-  //UIType
+export default function UIType(props) {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h3>Wie wird der UI-Typ einer Fiori-Anwendung identifiziert?</h3>
+      <h3>{t("uiDefine")}</h3>
+
       <p>
         Der UI-Typ der Anwendung ist für alle Fiori-Anwendungen in der{" "}
         <Link

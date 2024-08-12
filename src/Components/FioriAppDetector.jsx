@@ -1,66 +1,108 @@
 import { useEffect, useState } from "react";
-import { Button, Input, Select } from "antd";
+import { Button, Input, AutoComplete } from "antd";
 import React from "react";
 
+import { PlayCircleOutlined } from "@ant-design/icons";
 export function FioriAppDetector() {
-    const [appName, setAppName] = useState("");
-    const [appProperties, setAppProperties] = useState(null);
-    const [data, setData] = useState()
+  const [searchInput, setSearchInput] = useState("");
+  const [appProperties, setAppProperties] = useState([]);
+  const [dataSource, setDataSource] = useState([]);
+  const [showResult, showRresult] = useState(false);
 
-    // Dummy-Funktion zum Abrufen der App-Eigenschaften basierend auf dem Namen oder der ID
-    const fetchAppProperties = async () => {
-     
-      try {
-        const response = await fetch('FioriApps.csv');
-        const csvData = await response.text();
-        const rows = csvData.split('\n');
-        const headers = rows[0].split(';');
-  
-        const dataRows = rows.slice(1).map(row => {
-          const rowData = row.split(';');
-          return headers.reduce((obj, header, index) => {
-            obj[header] = rowData[index];
-            return obj;
-          }, {});
-        });
-  
-        setData(dataRows);
-      } catch (error) {
-        console.error('Error fetching CSV:', error);
-      }
-    
-    };
-    useEffect(() => {
-       fetchAppProperties()
-      }, []);
+  const fetchAppProperties = async () => {
+    try {
+      const response = await fetch("FioriApps.csv");
+      const csvData = await response.text();
+      const rows = csvData.split("\n");
+      const headers = rows[0].split(";");
 
-    return (
-        <div style={{ display: "flex", maxWidth: "100%" }}>
-            <div style={{ flex: "1", padding: "20px" }}>
-                <h2>App-Name oder App-ID eingeben:</h2>
-  <Select style={{
-    width: "60%"
-  }}></Select>
-              
-                <Button  type="primary" onClick={fetchAppProperties} style={{ marginTop: "10px",    width: "40%" }}>
-                   Suchen
-                </Button>
-                
-            </div>
-            <div style={{ flex: "1", padding: "20px" }}>
-                {appProperties && (
-                    <>
-                        <h2>App-Eigenschaften</h2>
-                        <p><strong>UI Typ:</strong> {appProperties.uiType}</p>
-                        <p><strong>SAP UI Flexibility:</strong> {appProperties.sapUiFlexibility}</p>
-                        <p><strong>Geschäftskontext:</strong> {appProperties.businessContext}</p>
-                        <p><strong>OData Service:</strong> {appProperties.oDataService}</p>
-                        <Button onClick={()=>{
-                          
-                        }}>Daten übernehmen</Button>
-                    </>
-                )}
-            </div>
-        </div>
+      const dataRows = rows.slice(1).map((row) => {
+        const rowData = row.split(";");
+        return headers.reduce((obj, header, index) => {
+          obj[header] = rowData[index];
+          return obj;
+        }, {});
+      });
+
+      setDataSource(
+        dataRows.map((app) => ({
+          value: `${app.AppName} (${app.fioriId})`,
+          appName: app.AppName,
+          fioriId: app.fioriId,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching CSV:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAppProperties();
+  }, []);
+
+  const handleSearch = (value) => {
+    setSearchInput(value);
+    const filteredApps = dataSource.filter(
+      (app) =>
+        app.appName?.toLowerCase().includes(value.toLowerCase()) ||
+        app.fioriId?.toLowerCase().includes(value.toLowerCase())
     );
+    setAppProperties(filteredApps);
+  };
+
+  const onSelect = (value, option) => {
+    setSearchInput(value);
+    const selectedApp = dataSource.find(
+      (app) => `${app.appName} (${app.fioriId})` === value
+    );
+    setAppProperties([selectedApp]);
+  };
+
+  const onSearchButtonClick = () => {
+    showRresult(true);
+  };
+
+  return (
+    <div style={{ display: "flex", maxWidth: "100%" }}>
+      <div style={{ flex: "1", padding: "20px" }}>
+        <h2>App-Name oder App-ID eingeben:</h2>
+        <AutoComplete
+          value={searchInput}
+          options={appProperties.map((app) => ({
+            value: `${app.appName} (${app.fioriId})`,
+            label: `${app.appName} (${app.fioriId})`,
+          }))}
+          style={{ width: "80%" }}
+          onSelect={onSelect}
+          onSearch={handleSearch}
+          placeholder="App-Name oder App-ID"
+        />
+        <Button
+          type="primary"
+          onClick={onSearchButtonClick}
+          style={{ marginTop: "10px", width: "18%", marginLeft: "2%" }}
+        >
+          <PlayCircleOutlined />
+        </Button>
+      </div>
+      {showResult && (
+        <div style={{ flex: "1", padding: "20px" }}>
+          {appProperties.length > 0 && (
+            <>
+              <h2>Gefundene Apps</h2>
+              <div>
+                <p>
+                  <strong>fioriId:</strong> {appProperties[0]?.fioriId}
+                </p>
+                <p>
+                  <strong>AppName:</strong> {appProperties[0]?.appName}
+                </p>
+                {/* Weitere App-Eigenschaften hier anzeigen */}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
