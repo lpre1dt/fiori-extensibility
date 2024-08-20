@@ -1,48 +1,45 @@
-import React, { useContext, useState, useEffect } from "react";
-import { auth, provider } from "./firebase";
+import React, { useContext, createContext, useState, useEffect } from "react";
+import { auth } from "./firebase";
 
-const AuthContext = React.createContext();
-export function useAuth() {
-  return useContext(AuthContext);
-}
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password);
-  }
-  function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password);
-  }
-  function logout() {
-    return auth.signOut();
-  }
-  function signInWithGoogle() {
-    return auth.signInWithPopup(provider);
-  }
-  function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email);
-  }
+const AuthContext = createContext();
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setLoading(false);
     });
     return unsubscribe;
   }, []);
+
+  const signup = async (email, password) => {
+    const userCredential = await auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    await userCredential.user.sendEmailVerification(); // Sende Verifizierungs-E-Mail
+    return userCredential.user;
+  };
+
+  const login = async (email, password) => {
+    await auth.signInWithEmailAndPassword(email, password);
+    const user = auth.currentUser;
+    return user;
+  };
+
+  const logout = () => {
+    return auth.signOut();
+  };
 
   const value = {
     currentUser,
     signup,
     login,
     logout,
-    signInWithGoogle,
-    resetPassword,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
-}
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

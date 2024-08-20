@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Input, Button, Tabs, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Header } from "antd/es/layout/layout";
 import { Image } from "antd";
 import { useAuth } from "../AuthProvider";
+import { auth } from "../firebase"; // Stelle sicher, dass Firebase korrekt importiert ist
 
 const { TabPane } = Tabs;
 
@@ -13,8 +14,13 @@ const LoginPage = () => {
 
   const onFinishLogin = async (values) => {
     try {
-      await login(values.email, values.password);
-      message.success("Logged in successfully!");
+      const user = await login(values.email, values.password);
+      if (user.emailVerified) {
+        message.success("Logged in successfully!");
+      } else {
+        message.error("Please verify your email before logging in!");
+        await auth.signOut(); // Benutzer abmelden, wenn nicht verifiziert
+      }
     } catch (error) {
       message.error("Failed to log in!");
     }
@@ -26,10 +32,26 @@ const LoginPage = () => {
       return;
     }
     try {
-      await signup(values.email, values.password);
-      message.success("Account created successfully!");
+      const user = await signup(values.email, values.password);
+      message.success(
+        "Account created successfully! Please verify your email."
+      );
     } catch (error) {
       message.error("Failed to create account!");
+    }
+  };
+
+  const handlePasswordReset = async (email) => {
+    if (!email) {
+      message.error("Please enter your email to reset your password.");
+      return;
+    }
+
+    try {
+      await auth.sendPasswordResetEmail(email);
+      message.success("Password reset email sent! Please check your inbox.");
+    } catch (error) {
+      message.error("Failed to send password reset email. Please try again.");
     }
   };
 
@@ -98,6 +120,21 @@ const LoginPage = () => {
                 >
                   Log in
                 </Button>
+              </Form.Item>
+              <Form.Item>
+                <a
+                  href="#"
+                  onClick={() => {
+                    const email = form.getFieldValue("email");
+                    handlePasswordReset(email);
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  Forgot your password?
+                </a>
               </Form.Item>
             </Form>
           </TabPane>
@@ -176,7 +213,7 @@ const LoginPage = () => {
           fontSize: "16px",
         }}
       >
-        <p style={{}}>
+        <p>
           You can create a free account with an @mhp.com email address. If you
           don't have one, you can get your email address whitelisted. Just
           request account via mail{" "}

@@ -1,11 +1,10 @@
-import { Button, Image, Select, Switch } from "antd";
+import { Button, Image, Select, Switch, message } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { Homepage } from "./Components/Homepage";
 import LoginPage from "./Components/LoginPage";
 import { useState } from "react";
 import React from "react";
 import { useTranslation } from "react-i18next";
-
 import { useAuth } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +14,15 @@ function App() {
   const [language, setLanguage] = useState("de");
   const [betaMode, setBetaMode] = useState(false);
   const navigate = useNavigate();
+
+  const handleResendVerificationEmail = async () => {
+    try {
+      await currentUser.sendEmailVerification();
+      message.success("Verification email sent. Please check your inbox.");
+    } catch (error) {
+      message.error("Failed to send verification email.");
+    }
+  };
 
   return (
     <div className="App">
@@ -86,7 +94,42 @@ function App() {
         </div>
       )}
 
-      {currentUser ? <Homepage betaMode={betaMode} /> : <LoginPage />}
+      {currentUser ? (
+        currentUser.emailVerified ? (
+          <Homepage betaMode={betaMode} />
+        ) : (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "20px",
+            }}
+          >
+            <div
+              style={{
+                padding: 90,
+                alignItems: "center",
+                fontFamily: "Arial, sans-serif",
+                fontSize: "16px",
+              }}
+            >
+              <h2>Please verify your email address</h2>
+              <p>
+                A verification email has been sent to your email address. Please
+                verify your email to access the application.
+              </p>
+            </div>
+            <Button
+              type="primary"
+              onClick={handleResendVerificationEmail}
+              style={{ marginTop: 0 }}
+            >
+              Resend Verification Email
+            </Button>
+          </div>
+        )
+      ) : (
+        <LoginPage />
+      )}
     </div>
   );
 }
