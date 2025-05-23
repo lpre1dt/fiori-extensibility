@@ -2,46 +2,48 @@ import { Table } from "antd";
 import React from "react";
 import { Tooltip } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useEffect } from "react";
 import Alert from "antd/es/alert/Alert";
 
 export default function DetailView(props) {
+  const { t } = useTranslation();
   const mockData = [
     {
-      Erweiterungsoption: "Erweiterungsoption 1",
-      Typ: "Implizit",
-      Beschreibung: "Beschreibung 1",
-      Lokalvoraussetzung: "Lokalvoraussetzung 1",
-      Umsatzung: "Umsatzung 1",
+      Erweiterungsoption: t("detailView.mockErweiterungsoption1"),
+      Typ: t("detailView.implizit"),
+      Beschreibung: t("detailView.mockBeschreibung1"),
+      Lokalvoraussetzung: t("detailView.mockLokalvoraussetzung1"),
+      Umsatzung: t("detailView.mockUmsatzung1"),
     },
     {
-      Erweiterungsoption: "Erweiterungsoption 1",
-      Typ: "Implizit",
-      Beschreibung: "Beschreibung 1",
-      Lokalvoraussetzung: "Lokalvoraussetzung 1",
-      Umsatzung: "Umsatzung 1",
+      Erweiterungsoption: t("detailView.mockErweiterungsoption1"),
+      Typ: t("detailView.implizit"),
+      Beschreibung: t("detailView.mockBeschreibung1"),
+      Lokalvoraussetzung: t("detailView.mockLokalvoraussetzung1"),
+      Umsatzung: t("detailView.mockUmsatzung1"),
     },
   ];
 
   const columns = [
     {
-      title: "Erweiterungsoption",
+      title: t("erweiterungsOption"),
       dataIndex: "Erweiterungsoption",
       key: "Erweiterungsoption",
       width: 100,
     },
     {
-      title: "Typ",
+      title: t("type"),
       dataIndex: "Typ",
       key: "Typ",
       width: 15,
       render: (text) => (
         <>
-          {text === "Implizit" ? (
+          {text === t("detailView.implizit") ? (
             <p style={{ color: "green" }}>{text}</p>
           ) : (
-            <Tooltip title="Diese Erweiterungsoption explizit. Es muss im Einzelfall geprüft werden, ob sie für die Fiori-Anwendung vorhanden ist">
+            <Tooltip title={t("detailView.explizitTooltip")}>
               <p style={{ color: "red" }}>{text}</p>
             </Tooltip>
           )}
@@ -50,19 +52,19 @@ export default function DetailView(props) {
     },
 
     {
-      title: "Beschreibung",
+      title: t("description"),
       dataIndex: "Beschreibung",
       key: "Beschreibung",
       width: 300,
     },
     {
-      title: "Voraussetzung",
+      title: t("voraussetzung"),
       dataIndex: "Lokalvoraussetzung",
       key: "Lokalvoraussetzung",
       width: 150,
     },
     {
-      title: "Technische Umsetzung",
+      title: t("technische"),
       dataIndex: "Umsatzung",
       key: "Umsatzung",
       width: 150,
@@ -134,13 +136,13 @@ export default function DetailView(props) {
         borderRadius: "15px",
       }}
     >
-      <h3>Details</h3>
-      <p>ID: {props.record.ID}</p>
+      <h3>{t("detailView.detailsTitle")}</h3>
+      <p>{t("detailView.idLabel")} {props.record.ID}</p>
 
-      <p>Persona: {props.record.Persona}</p>
+      <p>{t("detailView.personaLabel")} {props.record.Persona}</p>
       {filteredData?.length > 0 && (
         <>
-          <h3>Aufbauende Erweiterungsoptionen ({filteredData.length})</h3>
+          <h3>{t("detailView.aufbauendeOptionen")} ({filteredData.length})</h3>
           <Table
             columns={columns}
             pagination={false}

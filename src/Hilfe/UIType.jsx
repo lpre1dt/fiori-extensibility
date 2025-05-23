@@ -19,7 +19,7 @@ export default function UIType(props) {
             "https://fioriappslibrary.hana.ondemand.com/sap/fix/externalViewer/#/detail/Apps('F1708')/S27OP"
           }
         >
-          Fiori Apps Reference Library
+          {t("helpPage.businessContext.fioriAppsLibrary")}
         </Link>{" "}
         dokumentiert und kann aus ihr entnommen werden.
       </p>

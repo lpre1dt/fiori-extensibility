@@ -123,24 +123,24 @@ export function Anwendung({
           items={[
             {
               key: 1,
-              label: "Wizard",
+              label: t("anwendung.wizard"),
               children: <FioriAppDetector />,
             },
             {
               key: 2,
-              label: "Manuell",
+              label: t("anwendung.manuell"),
               children: (
                 <div>
                   {frontend === true && (
                     <div style={{}}>
-                      <h3>Frontend</h3>
+                      <h3>{t("applicationText2")}</h3>
                       <div>
                         <Radio.Group defaultValue={uiType}>
                           <Radio value={"SAPUI5"} onChange={changeRadio}>
-                            SAPUI5 Freestyle
+                            {t("anwendung.sapui5Freestyle")}
                           </Radio>
                           <Radio value={"FE"} onChange={changeRadio}>
-                            Fiori Elements
+                            {t("anwendung.fioriElements")}
                           </Radio>
                         </Radio.Group>
                       </div>
@@ -253,31 +253,31 @@ export function Anwendung({
                               onChange={handleFloorplan}
                               value={"Object Page"}
                             >
-                              Object Page
+                              {t("anwendung.objectPage")}
                             </Radio>
                             <Radio
                               onChange={handleFloorplan}
                               value={"List Report"}
                             >
-                              List Report
+                              {t("anwendung.listReport")}
                             </Radio>
                             <Radio
                               onChange={handleFloorplan}
                               value={"Analytical List Page"}
                             >
-                              Analytical List Page
+                              {t("anwendung.analyticalListPage")}
                             </Radio>
                             <Radio
                               onChange={handleFloorplan}
                               value={"Overview Page"}
                             >
-                              Overview Page
+                              {t("anwendung.overviewPage")}
                             </Radio>
                             <Radio
                               onChange={handleFloorplan}
                               value={"Worklist"}
                             >
-                              Worklist
+                              {t("anwendung.worklist")}
                             </Radio>
                           </Radio.Group>
 
@@ -318,9 +318,9 @@ export function Anwendung({
                           setFrontend(true);
                         }}
                       >
-                        Frontend
+                        {t("applicationText2")}
                       </Link>
-                      <h3>Backend</h3>
+                      <h3>{t("applicationText3")}</h3>
                       <p>{t("applicationText14")}</p>
                       <p>
                         {t("businessContext")}
@@ -453,14 +453,14 @@ export function Anwendung({
         <div>
           {frontend === true && (
             <div style={{}}>
-              <h3>Frontend</h3>
+              <h3>{t("applicationText2")}</h3>
               <div>
                 <Radio.Group defaultValue={uiType}>
                   <Radio value={"SAPUI5"} onChange={changeRadio}>
-                    SAPUI5 Freestyle
+                    {t("anwendung.sapui5Freestyle")}
                   </Radio>
                   <Radio value={"FE"} onChange={changeRadio}>
-                    Fiori Elements
+                    {t("anwendung.fioriElements")}
                   </Radio>
                 </Radio.Group>
               </div>
@@ -570,22 +570,22 @@ export function Anwendung({
                   <p>{t("floorPlan")}</p>
                   <Radio.Group defaultValue={floorplan}>
                     <Radio onChange={handleFloorplan} value={"Object Page"}>
-                      Object Page
+                      {t("anwendung.objectPage")}
                     </Radio>
                     <Radio onChange={handleFloorplan} value={"List Report"}>
-                      List Report
+                      {t("anwendung.listReport")}
                     </Radio>
                     <Radio
                       onChange={handleFloorplan}
                       value={"Analytical List Page"}
                     >
-                      Analytical List Page
+                      {t("anwendung.analyticalListPage")}
                     </Radio>
                     <Radio onChange={handleFloorplan} value={"Overview Page"}>
-                      Overview Page
+                      {t("anwendung.overviewPage")}
                     </Radio>
                     <Radio onChange={handleFloorplan} value={"Worklist"}>
-                      Worklist
+                      {t("anwendung.worklist")}
                     </Radio>
                   </Radio.Group>
 
@@ -626,9 +626,9 @@ export function Anwendung({
                   setFrontend(true);
                 }}
               >
-                Frontend
+                {t("applicationText2")}
               </Link>
-              <h3>Backend</h3>
+              <h3>{t("applicationText3")}</h3>
               <p>{t("applicationText14")}</p>
               <p>
                 {t("businessContext")}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input, Button, Tabs, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 import { Header } from "antd/es/layout/layout";
 import { Image } from "antd";
 import { useAuth } from "../AuthProvider";
@@ -9,6 +10,7 @@ import { auth } from "../firebase"; // Stelle sicher, dass Firebase korrekt impo
 const { TabPane } = Tabs;
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const { signup, login } = useAuth();
 
@@ -16,42 +18,40 @@ const LoginPage = () => {
     try {
       const user = await login(values.email, values.password);
       if (user.emailVerified) {
-        message.success("Logged in successfully!");
+        message.success(t("loginPage.loginSuccess"));
       } else {
-        message.error("Please verify your email before logging in!");
+        message.error(t("loginPage.verifyEmailError"));
         await auth.signOut(); // Benutzer abmelden, wenn nicht verifiziert
       }
     } catch (error) {
-      message.error("Failed to log in!");
+      message.error(t("loginPage.loginFailedError"));
     }
   };
 
   const onFinishSignUp = async (values) => {
     if (!values.email.endsWith("@mhp.com")) {
-      message.error("You can only sign up with an @mhp.com email address.");
+      message.error(t("loginPage.mhpEmailError"));
       return;
     }
     try {
       const user = await signup(values.email, values.password);
-      message.success(
-        "Account created successfully! Please verify your email."
-      );
+      message.success(t("loginPage.signUpSuccess"));
     } catch (error) {
-      message.error("Failed to create account!");
+      message.error(t("loginPage.signUpFailedError"));
     }
   };
 
   const handlePasswordReset = async (email) => {
     if (!email) {
-      message.error("Please enter your email to reset your password.");
+      message.error(t("loginPage.passwordResetEmailPrompt"));
       return;
     }
 
     try {
       await auth.sendPasswordResetEmail(email);
-      message.success("Password reset email sent! Please check your inbox.");
+      message.success(t("loginPage.passwordResetSuccess"));
     } catch (error) {
-      message.error("Failed to send password reset email. Please try again.");
+      message.error(t("loginPage.passwordResetFailed"));
     }
   };
 
@@ -84,32 +84,32 @@ const LoginPage = () => {
             fontSize: "15px",
           }}
         >
-          Fiori Extensibility Compass
+          {t("loginPage.appTitle")}
         </Header>
         <Tabs defaultActiveKey="1">
-          <TabPane tab="Login" key="1">
+          <TabPane tab={t("loginPage.loginTitle")} key="1">
             <Form form={form} name="login" onFinish={onFinishLogin}>
               <Form.Item
                 name="email"
                 rules={[
-                  { required: true, message: "Please input your Email!" },
+                  { required: true, message: t("loginPage.emailPlaceholder") }, // Assuming this message is for placeholder
                 ]}
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Email"
+                  placeholder={t("loginPage.emailPlaceholder")}
                 />
               </Form.Item>
               <Form.Item
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your Password!" },
+                  { required: true, message: t("loginPage.passwordPlaceholder") }, // Assuming this message is for placeholder
                 ]}
               >
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
-                  placeholder="Password"
+                  placeholder={t("loginPage.passwordPlaceholder")}
                 />
               </Form.Item>
               <Form.Item>
@@ -118,7 +118,7 @@ const LoginPage = () => {
                   htmlType="submit"
                   style={{ width: "100%" }}
                 >
-                  Log in
+                  {t("loginPage.loginButton")}
                 </Button>
               </Form.Item>
               <Form.Item>
@@ -133,34 +133,34 @@ const LoginPage = () => {
                     justifyContent: "center",
                   }}
                 >
-                  Forgot your password?
+                  {t("loginPage.forgotPasswordLink")}
                 </a>
               </Form.Item>
             </Form>
           </TabPane>
-          <TabPane tab="Sign Up" key="2">
+          <TabPane tab={t("loginPage.signUpTitle")} key="2">
             <Form form={form} name="register" onFinish={onFinishSignUp}>
               <Form.Item
                 name="email"
                 rules={[
-                  { required: true, message: "Please input your Email!" },
+                  { required: true, message: t("loginPage.emailPlaceholder") }, // Assuming this message is for placeholder
                 ]}
               >
                 <Input
                   prefix={<UserOutlined className="site-form-item-icon" />}
-                  placeholder="Email"
+                  placeholder={t("loginPage.emailPlaceholder")}
                 />
               </Form.Item>
               <Form.Item
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your Password!" },
+                  { required: true, message: t("loginPage.passwordPlaceholder") }, // Assuming this message is for placeholder
                 ]}
               >
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
-                  placeholder="Password"
+                  placeholder={t("loginPage.passwordPlaceholder")}
                 />
               </Form.Item>
               <Form.Item
@@ -170,7 +170,7 @@ const LoginPage = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Please confirm your password!",
+                    message: t("loginPage.confirmPasswordPrompt"),
                   },
                   ({ getFieldValue }) => ({
                     validator(_, value) {
@@ -178,9 +178,7 @@ const LoginPage = () => {
                         return Promise.resolve();
                       }
                       return Promise.reject(
-                        new Error(
-                          "The two passwords that you entered do not match!"
-                        )
+                        new Error(t("loginPage.passwordsNoMatchError"))
                       );
                     },
                   }),
@@ -189,7 +187,7 @@ const LoginPage = () => {
                 <Input
                   prefix={<LockOutlined className="site-form-item-icon" />}
                   type="password"
-                  placeholder="Confirm Password"
+                  placeholder={t("loginPage.confirmPasswordPlaceholder")}
                 />
               </Form.Item>
               <Form.Item>
@@ -198,7 +196,7 @@ const LoginPage = () => {
                   htmlType="submit"
                   style={{ width: "100%" }}
                 >
-                  Sign Up
+                  {t("loginPage.signUpButton")}
                 </Button>
               </Form.Item>
             </Form>
@@ -214,13 +212,11 @@ const LoginPage = () => {
         }}
       >
         <p>
-          You can create a free account with an @mhp.com email address. If you
-          don't have one, you can get your email address whitelisted. Just
-          request account via mail{" "}
+          {t("loginPage.freeAccountInfo")}
           <a href="mailto:lukas.preidt@mhp.com?subject=request%20FEC%20Account&body=User%20request%20for%20this%20Email.%20Please%20generate%20an%20User%20for%20the%20Fiori%20Extensibility%20Compass.">
-            Request account
-          </a>{" "}
-          just send predefined mail (no adjustments or formalities needed ).
+            {t("loginPage.requestAccountLink")}
+          </a>
+          {t("loginPage.predefinedMailInfo")}
         </p>
       </div>
     </div>
