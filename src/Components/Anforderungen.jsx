@@ -152,7 +152,7 @@ export function Anforderungen({
           )}
           {workOnBackend && (
             <div>
-              <h3>{t("requiremetText3")}</h3>
+              <h3>{t("requiremetText4")}</h3>
               <p> {t("requiremetText7")}</p>
               {t("stufe")}: {backendComplexity}
               <div
