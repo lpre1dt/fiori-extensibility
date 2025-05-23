@@ -1,48 +1,40 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function SelectionHelp() {
+  const { t } = useTranslation();
   return (
     <div>
       <h3>
-        So sollten Sie bei der Selektion der Erweiterungsoptionen vorgehen:
+        {t("helpPage.selectionHelp.title")}
       </h3>
       <p>
-        Es lassen sich jedoch logische Empfehlungen definieren, wie bei der
-        Selektion vorzugehen ist:
+        {t("helpPage.selectionHelp.logischeEmpfehlungen")}
       </p>
       <ol>
         <li>
           <p>
-            Generell sollte erst das Datenmodell erweitert werden und danach UI
-            und Logik implementiert werden, weil das Datenmodell die Grundlage
-            bildet.
+            {t("helpPage.selectionHelp.punkt1DatenmodellZuerst")}
           </p>
         </li>{" "}
         <li>
           <p>
-            Gestartet wird bei der Erweiterungsoption mit dem geringsten
-            Aufwand.{" "}
+            {t("helpPage.selectionHelp.punkt2GeringsterAufwand")}{" "}
           </p>
         </li>
         <li>
           <p>
-            Wenn es erfahrungsbasiertes Wissen darüber gibt, dass sich die
-            Anforderung mit einer Erweiterungsoption nicht umsetzen lässt, wird
-            sie verworfen und die nächste Alternative mit dem nächsthöheren
-            Aufwand selektiert.
+            {t("helpPage.selectionHelp.punkt3Erfahrungsbasiert")}
           </p>
         </li>
         <li>
           <p>
-            Wenn zwei Erweiterungsoptionen den gleichen Aufwand haben, wird sich
-            für die flexiblere entschieden.
+            {t("helpPage.selectionHelp.punkt4GleicherAufwandFlexiblere")}
           </p>
         </li>
         <li>
           <p>
-            Wenn ein Erweiterungsversuch erfolglos war, wird die
-            Erweiterungsoption und alle mit einer niedrigeren Flexibilität
-            verworfen.
+            {t("helpPage.selectionHelp.punkt5ErfolglosVerwerfen")}
           </p>
         </li>
       </ol>

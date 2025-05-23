@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Floorplan() {
+  const { t } = useTranslation();
   //FP
   return (
     <div>
       <h3>
-        Wie identifiziere ich den Floorplan einer Fiori Elements-Anwendung?
+        {t("helpPage.floorplan.title")}
       </h3>
       <p>
-        Ist der Name des Floorplans nicht aus dem Applikationstyp in der Fiori
-        Apps Reference Library identifizierbar, muss er manuell abgeglichen
-        werden. Eine Übersicht mit allen Fiori Elements Floorplans finden Sie{" "}
+        {t("helpPage.floorplan.manualAbgleich")}
         <Link
           target="_blank"
           rel="noopener noreferrer"
@@ -19,9 +19,9 @@ export default function Floorplan() {
             "https://sapui5.hana.ondemand.com/sdk/#/topic/797c3239b2a9491fa137e4998fd76aa7"
           }
         >
-          hier
+          {t("here")}
         </Link>
-        .
+        {t("helpPage.floorplan.dot")}
       </p>
     </div>
   );

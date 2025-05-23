@@ -113,7 +113,7 @@ export function Homepage({ betaMode }) {
         >
           <Drawer
             width={720}
-            title="Hilfe"
+            title={t("help")}
             placement="right"
             onClose={closeDrawer}
             open={showHelp?.show}
@@ -216,7 +216,7 @@ export function Homepage({ betaMode }) {
             textAlign: "center",
           }}
         >
-          MHP a Porsche Company ©2023 Created by Lukas Preidt
+          {t("homepage.footerText")}
         </Footer>
       </Layout>
     </Layout>

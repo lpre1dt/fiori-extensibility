@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs } from "antd";
 import Image from "antd/es/image";
+import { useTranslation } from "react-i18next";
 import {
   AppstoreOutlined,
   DesktopOutlined,
@@ -8,24 +9,20 @@ import {
 } from "@ant-design/icons";
 
 export default function SyncViews() {
+  const { t } = useTranslation();
   //SyncViews
   return (
     <div>
       <h3>
-        Wie wird bestimmt ob eine Fiori-Anwendung synchrone Views verwendet?
+        {t("helpPage.syncViews.title")}
       </h3>
 
       <p>
-        Um festzustellen, ob die Anwendung synchrone Views verwendet, sollte
-        dies im Business Application Studio geprüft werden. Hierfür muss ein
-        Adaptation Project definiert und bis zum Schritt "Select Application"
-        fortgefahren werden.
+        {t("helpPage.syncViews.basCheck")}
       </p>
-      <Image src="/SyncViews.png" alt="Adaptation Project" />
+      <Image src="/SyncViews.png" alt={t("helpPage.syncViews.adaptationProjectAltText")} />
       <p>
-        Wenn die Anwendung synchrone Views enthält, wird dies gemeldet, und es
-        wird die Möglichkeit geboten, zwischen einem Adaptation- oder
-        Extension-Projekt zu wählen.
+        {t("helpPage.syncViews.syncViewsMessage")}
       </p>
     </div>
   );

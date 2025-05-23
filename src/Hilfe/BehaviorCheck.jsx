@@ -1,20 +1,18 @@
 import { Image } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function BehaviorCheck() {
+  const { t } = useTranslation();
   return (
     <div>
       <h3>
-        Wie finde ich heraus, ob mein RAP OData-Service Behavior-Erweiterungen
-        unterstützt
+        {t("helpPage.behaviorCheck.title")}
       </h3>
       <p>
-        In der Definition des Verhaltens (Behavior) des Interface-Views muss
-        dies explizit durch das Schlüsselwort "extensible" im Kopf erlaubt sein.
-        Zudem müssen alle verfügbaren Änderungsoptionen manuell innerhalb der
-        geschweiften Klammern erlaubt sein.
+        {t("helpPage.behaviorCheck.extensibleDescription")}
       </p>
-      <Image src="/RAP_Extensible.png" alt="RAP Extensible" />
+      <Image src="/RAP_Extensible.png" alt={t("helpPage.behaviorCheck.rapExtensibleAltText")} />
     </div>
   );
 }

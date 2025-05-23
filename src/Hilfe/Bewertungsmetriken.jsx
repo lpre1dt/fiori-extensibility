@@ -1,16 +1,19 @@
 import { Table } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Bewertungsmetriken() {
+  const { t } = useTranslation();
+
   const columns1 = [
     {
-      title: "Stufe",
+      title: t("stufe"),
       dataIndex: "Stufe",
       key: "Stufe",
       width: "5%",
     },
     {
-      title: "Beschreibung",
+      title: t("description"),
       dataIndex: "Beschreibung",
       key: "Beschreibung",
       width: "95%",
@@ -19,19 +22,19 @@ export default function Bewertungsmetriken() {
 
   const columns2 = [
     {
-      title: "Ausprägung",
+      title: t("helpPage.bewertungsmetriken.auspraegung"),
       dataIndex: "Ausprägung",
       key: "Ausprägung",
       width: "20%",
     },
     {
-      title: "Beschreibung",
+      title: t("description"),
       dataIndex: "Beschreibung",
       key: "Beschreibung",
       width: "75%",
     },
     {
-      title: "Wert",
+      title: t("helpPage.bewertungsmetriken.wert"),
       dataIndex: "Wert",
       key: "Wert",
       width: "5%",
@@ -41,144 +44,119 @@ export default function Bewertungsmetriken() {
   const data1 = [
     {
       Stufe: 1,
-      Beschreibung: "Bestehendes anpassen oder personalisieren.",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe1"),
     },
     {
       Stufe: 2,
-      Beschreibung:
-        "Einfache Inhalte hinzufügen, die noch nicht im Datenmodell sind.",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe2"),
     },
     {
       Stufe: 3,
-      Beschreibung: "Datenmodell- oder Logikerweiterungen geführt (Key-User).",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe3"),
     },
     {
       Stufe: 4,
-      Beschreibung:
-        "An expliziten Erweiterungspunkten benutzerdefinierten Code hinzufügen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe4"),
     },
     {
       Stufe: 5,
-      Beschreibung:
-        "Implizite Erweiterungen mit benutzerdefiniertem Code hinzufügen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe5"),
     },
     {
       Stufe: 6,
-      Beschreibung: "Aktiv in bestehenden Programmcode eingreifen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.flexStufe6"),
     },
   ];
 
   const data2 = [
     {
-      Ausprägung: "UI 1",
-      Beschreibung: "Ansicht verändern, Tabellenspalten und Filter anpassen.",
+      Ausprägung: "UI 1", // This is a category label, might not need translation or a specific key if always displayed with numeric value
+      Beschreibung: t("helpPage.bewertungsmetriken.emUbersicht1"),
       Wert: 1,
     },
     {
       Ausprägung: "UI 2",
-      Beschreibung: "Visuelle Anpassung, Inhalte entfernen, verschieben.",
+      Beschreibung: t("helpPage.bewertungsmetriken.emUbersicht2"),
       Wert: 2,
     },
     {
       Ausprägung: "UI 3",
-      Beschreibung: "Visuelle Erweiterung, Inhalte hinzufügen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.emUbersicht3"),
       Wert: 3,
     },
     {
       Ausprägung: "Logik 1",
-      Beschreibung:
-        "Logikanpassung, Erweiterungen die in die bestehende Logik eingreifen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.emLogik1"),
       Wert: 3,
     },
     {
       Ausprägung: "Logik 2",
-      Beschreibung:
-        "Logikerweiterungen, die nicht in die bestehende Logik eingreifen und neue Logik ergänzen.",
+      Beschreibung: t("helpPage.bewertungsmetriken.emLogik2"),
       Wert: 3,
     },
     {
       Ausprägung: "Datenmodell 1",
-      Beschreibung:
-        "Felder zum bestehenden Datenmodell hinzufügen (bereits in S/4HANA vorhanden).",
+      Beschreibung: t("helpPage.bewertungsmetriken.emDatenmodell1"),
       Wert: 1,
     },
     {
       Ausprägung: "Datenmodell 2",
-      Beschreibung:
-        "Felder zum bestehenden Datenmodell hinzufügen (noch nicht in S/4HANA vorhanden).",
+      Beschreibung: t("helpPage.bewertungsmetriken.emDatenmodell2"),
       Wert: 2,
     },
     {
       Ausprägung: "Datenmodell 3",
-      Beschreibung:
-        "Das bestehende Datenmodell grundlegend erweitern um neue Knoten oder Entitäten.",
+      Beschreibung: t("helpPage.bewertungsmetriken.emDatenmodell3"),
       Wert: 3,
     },
   ];
 
   return (
     <div>
-      <h3>Wie wurden die Werte für Flexibilität und Aufwand berechnet?</h3>
-      <h4>Flexibilität</h4>
-      <p>Für die Flexibilität wurden 6 Flexibilitätsstufen definiert:</p>
+      <h3>{t("helpPage.bewertungsmetriken.title")}</h3>
+      <h4>{t("flexibilitaet")}</h4>
+      <p>{t("helpPage.bewertungsmetriken.flexStufenDef")}</p>
       <Table columns={columns1} dataSource={data1} pagination={false} />
       <p>
-        In diese Flexibilitätsstufen wurden alle Erweiterungsoptionen
-        eingeordnet.
+        {t("helpPage.bewertungsmetriken.eingeordnetDescription")}
       </p>
       <p>
-        Nach dieser Einordnung wurden alle Erweiterungsoptionen * 10
-        multipliziert und subjektive Anpassungen im Intervall (-10;10)
-        durchgeführt, um die Bewertungen zu diversifizieren.
+        {t("helpPage.bewertungsmetriken.multipliziertDescription")}
       </p>
       <p>
-        Am Ende wurden die korrigierten Werte in Prozent (%) zum höchsten Wert
-        umgewandelt.
+        {t("helpPage.bewertungsmetriken.umgewandeltDescription")}
       </p>
 
-      <h4>Aufwand</h4>
+      <h4>{t("aufwand")}</h4>
       <p>
-        Der Gesamtaufwand (GA) berechnet sich aus dem Mindestaufwand (MA) und
-        einem Wert, der aus der Ausprägung in der Spalte
-        "Erweiterungsmöglichkeit" (EM) berechnet wird.
+        {t("helpPage.bewertungsmetriken.gesamtaufwandDescription")}
       </p>
-      <p>GA = MA + EM </p>
+      <p>{t("helpPage.bewertungsmetriken.gaFormula")} </p>
 
       <p>
-        Der <b>Mindestaufwand</b> wird berechnet aus der Summe an Schritten, die
-        mindestens bei der Implementation einer Erweiterungsoption durchgeführt
-        werden müssen, ohne die eigentliche Implementation. Also sozusagen die
-        Opportunitätskosten einer Erweiterungsoption.
+        <span dangerouslySetInnerHTML={{ __html: t("helpPage.bewertungsmetriken.mindestaufwandDescription") }} />
       </p>
-      <p>Beispiel für die Erweiterungsoption "Controller anlegen":</p>
+      <p>{t("helpPage.bewertungsmetriken.beispielControllerAnlegen")}</p>
       <ul>
-        <li>Adaptation Project anlegen</li>
-        <li>Controller anlegen</li>
-        <li>Logik implementieren (wird nicht einbezogen)</li>
-        <li>Produktivsetzen</li>
+        <li>{t("helpPage.bewertungsmetriken.adaptationProjectAnlegen")}</li>
+        <li>{t("helpPage.bewertungsmetriken.controllerAnlegen")}</li>
+        <li>{t("helpPage.bewertungsmetriken.logikImplementieren")}</li>
+        <li>{t("helpPage.bewertungsmetriken.produktivsetzen")}</li>
       </ul>
-      <p>Daraus ergibt sich ein MA von 3</p>
+      <p>{t("helpPage.bewertungsmetriken.maResult")}</p>
 
       <p>
-        Der <b>Wert aus der Erweiterungsmöglichkeit</b> ergibt sich aus dem
-        höchsten Wert, den die Kategorie enthält, in der die Erweiterungsoption
-        in der Spalte "Erweiterungsmöglichkeiten in der Datengrundlage"
-        enthalten ist.
+        <span dangerouslySetInnerHTML={{ __html: t("helpPage.bewertungsmetriken.wertErweiterungsmoeglichkeit") }} />
       </p>
       <p>
-        Die folgende Tabelle zeigt die Werte, die für EM übernommen werden, für
-        jede Erweiterungsoption. Logikerweiterungsoptionen werden pauschal mit
-        dem Wert 3 übernommen.
+        {t("helpPage.bewertungsmetriken.tabelleEmWerte")}
       </p>
       <Table columns={columns2} dataSource={data2} pagination={false} />
       <p>
-        Auch hier wurden nach dieser Einordnung alle Erweiterungsoptionen * 10
-        multipliziert und subjektive Anpassungen im Intervall (-10;10)
-        durchgeführt, um die Bewertungen zu diversifizieren.
+        {t("helpPage.bewertungsmetriken.auchHierMultipliziert")}
       </p>
       <p>
-        Am Ende wurden die korrigierten Werte in Prozent (%) zum höchsten Wert
-        umgewandelt.
+        {t("helpPage.bewertungsmetriken.umgewandeltDescription")}
       </p>
     </div>
   );

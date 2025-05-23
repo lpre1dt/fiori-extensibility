@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Input, Button, message, Image } from "antd";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 export default function BusinessContext() {
+  const { t } = useTranslation();
   //BC
   const [code, setCode] = useState(
     `SELECT
@@ -26,19 +29,16 @@ export default function BusinessContext() {
 
   const handleCopy = () => {
     setCopied(true);
-    message.success("SQL-Statement kopiert!");
+    message.success(t("helpPage.businessContext.sqlStatementCopied"));
   };
   return (
     <div>
       <h2>
-        {" "}
-        Wie wird geprüft, ob sich der Geschäftskontext einer Fiori-Anwendung im
-        Erweiterungsregister befindet?
+        {t("helpPage.businessContext.title")}
       </h2>
       <div>
         <p>
-          Zuerst müssen Sie den OData-Service ihrer Fiori-Anwendung
-          identifzieren. Den Namen des OData-Service erhalten Sie aus der{" "}
+          {t("helpPage.businessContext.identifyOdataService")}
           <Link
             target="_blank"
             rel="noopener noreferrer"
@@ -46,18 +46,16 @@ export default function BusinessContext() {
               "https://fioriappslibrary.hana.ondemand.com/sap/fix/externalViewer/#/detail/Apps('F1708')/S27OP"
             }
           >
-            Fiori Apps Reference Library
+            {t("helpPage.businessContext.fioriAppsLibrary")}
           </Link>{" "}
         </p>
         <Image src={"/2ODATA.gif"} />
         <p>
-          Das folgende Select Statement sollte in die SQL-Konsole in Eclipse
-          eingegeben werden:
+          {t("helpPage.businessContext.sqlConsolePrompt")}
         </p>
         <i>
           {" "}
-          'ODATA-SERVICE-NAME' sollte durch den Namen des OData-Service ihrer
-          Fiori-Anwendung ausgetauscht werden
+          {t("helpPage.businessContext.odataServiceNamePlaceholder")}
         </i>
         <Input.TextArea
           autoSize={{ minRows: 5 }}
@@ -72,23 +70,15 @@ export default function BusinessContext() {
               marginTop: 10,
             }}
           >
-            {copied ? "Kopiert!" : "In Zwischenablage kopieren"}
+            {copied ? t("helpPage.businessContext.copied") : t("helpPage.businessContext.copyToClipboard")}
           </Button>
         </CopyToClipboard>
-        <p>Nun gibt es zwei Optionen:</p>
+        <p>{t("helpPage.businessContext.optionsTitle")}</p>
         <ul>
-          <li>
-            `SQL-Abfrage liefert <b>kein Ergebnis</b>: Kein Geschäftskontext im
-            Erweiterungsregister
-          </li>
+          <li dangerouslySetInnerHTML={{ __html: t("helpPage.businessContext.sqlNoResult") }} />
         </ul>
         <ul>
-          <li>
-            {" "}
-            SQL-Abfrage liefert Ergibnis: Geschäftskontext(e) im
-            Erweiterungsregister. Name Beschreibung und erweiterbrare Entität
-            sollte für potenzielle Erweiterungen notiert werden.
-          </li>
+          <li dangerouslySetInnerHTML={{ __html: t("helpPage.businessContext.sqlResult") }} />
         </ul>
       </div>
     </div>

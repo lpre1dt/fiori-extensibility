@@ -65,7 +65,7 @@ export default function Bewertung({
 
         {uiFilteredData && (
           <div>
-            <h3>UI: {t("evaluatedOptions")} </h3>
+            <h3>{t("bewertung.uiLabel")} {t("evaluatedOptions")} </h3>
             <div style={{ height: "600px", width: "600px" }}>
               <ResponsiveContainer>
                 <ScatterChart
@@ -100,7 +100,7 @@ export default function Bewertung({
         )}
         {logicFilteredData && (
           <div>
-            <h3>Bewertete Logik-Erweiterungsoptionen</h3>
+            <h3>{t("bewertung.bewerteteLogikOptionen")}</h3>
             <div style={{ height: "600px", width: "600px" }}>
               <ResponsiveContainer>
                 <ScatterChart
@@ -135,7 +135,7 @@ export default function Bewertung({
         )}
         {dataModelfilteredData && (
           <div>
-            <h3>Bewertete Datenmodell-Erweiterungsoptionen</h3>
+            <h3>{t("bewertung.bewerteteDatenmodellOptionen")}</h3>
             <div style={{ height: "600px", width: "600px" }}>
               <ResponsiveContainer>
                 <ScatterChart

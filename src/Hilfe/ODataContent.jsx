@@ -1,38 +1,27 @@
 import { Image } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ODataContent() {
+  const { t } = useTranslation();
   return (
     <div>
-      <h3>Wie wird bestimmt, welchen Inhalt ein OData-Service enthält?</h3>
+      <h3>{t("helpPage.odataContent.title")}</h3>
       <p>
-        Wenn die Anwendung mehrere OData-Services verwendet, sollten die
-        relevanten OData-Services für die Erweiterung identifiziert werden. Dies
-        kann durch den Abgleich der Entitäten des OData-Services mit den
-        Entitäten der Erweiterungsanforderung überprüft werden, insbesondere
-        wenn die Erweiterungsanforderung eine Erweiterung des Datenmodells
-        vorsieht.
+        {t("helpPage.odataContent.multipleOdataDescription")}
       </p>
       <p>
-        Um festzustellen, welche Daten der OData-Service bereitstellt, ohne
-        diesen technisch zu analysieren, kann die Browser-URL des OData-Services
-        aufgerufen und im JSON-Format betrachtet werden. Die Browser-URL erhält
-        man aus der Transaktion "/IWFND/MAINT_SERVICE" - Services aktivieren und
-        verwalten, über den Button "Browser abrufen". Mit dieser URL können
-        Anfragen gesendet werden, um die vom OData-Service ausgelesenen Daten zu
-        erhalten.
+        {t("helpPage.odataContent.browserUrlDescription")}
       </p>
       <p>
-        Ein Beispiel, wie man über URL-Abfragen die Inhalte eines OData-Services
-        auslesen kann, ist hier am OData-Service "SD_F1708_CRT_WL_SRV"
-        demonstriert.
+        {t("helpPage.odataContent.beispielSDSRV")}
       </p>
-      <p>Vorgehen:</p>
-      <Image src="/ODataProc.gif" alt="OData Content" />
-      <p>Ausgabe im JSON-Format:</p>
-      <Image src="/Entities.png" alt="OData Content" />
-      <p>Inhalt der Entität I_Customer:</p>{" "}
-      <Image src="/ODataContent.png" alt="OData Content" />
+      <p>{t("helpPage.odataContent.vorgehen")}</p>
+      <Image src="/ODataProc.gif" alt={t("helpPage.odataContent.altODataContent")} />
+      <p>{t("helpPage.odataContent.ausgabeJsonFormat")}</p>
+      <Image src="/Entities.png" alt={t("helpPage.odataContent.altODataContent")} />
+      <p>{t("helpPage.odataContent.inhaltEntitaetICustomer")}</p>{" "}
+      <Image src="/ODataContent.png" alt={t("helpPage.odataContent.altODataContent")} />
     </div>
   );
 }

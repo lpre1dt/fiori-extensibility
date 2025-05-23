@@ -47,7 +47,7 @@ export function Anforderungen({
     if (uiComplexity === 3) {
       return <p>{t("ui3")}</p>;
     }
-    return <p>hoch</p>;
+    return <p>{t("anforderungen.hoch")}</p>;
   };
   const logicComplexityHelper = () => {
     if (logicComplexity === 0) {

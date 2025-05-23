@@ -319,7 +319,7 @@ export function OverviewTable({
 
   const columns = [
     {
-      title: "ID",
+      title: t("detailView.idLabel"), // Reusing from DetailView as it's just "ID:"
       dataIndex: "ID",
       key: "ID",
       width: 5,
@@ -338,10 +338,10 @@ export function OverviewTable({
       width: 15,
       render: (text) => (
         <>
-          {text === "Implizit" ? (
+          {text === t("detailView.implizit") ? ( // Assuming "Implizit" comes from a shared concept
             <p style={{ color: "green" }}>{text}</p>
           ) : (
-            <Tooltip title="Diese Erweiterungsoption explizit. Es muss im Einzelfall geprüft werden, ob sie für die Fiori-Anwendung vorhanden ist.">
+            <Tooltip title={t("detailView.explizitTooltip")}>
               <p style={{ color: "red" }}>{text}</p>
             </Tooltip>
           )}
@@ -406,7 +406,7 @@ export function OverviewTable({
             </h3>
             <p>
               {" "}
-              UI-{t("minimumLevel")}
+              {t("overviewTable.uiPrefix")}{t("minimumLevel")}
               {anforderungsFilter?.uiComplexity}
             </p>
             <Table
@@ -437,7 +437,7 @@ export function OverviewTable({
             </h3>
             <p>
               {" "}
-              Logic-{t("minimumLevel")} {anforderungsFilter?.logicComplexity}
+              {t("overviewTable.logicPrefix")}{t("minimumLevel")} {anforderungsFilter?.logicComplexity}
             </p>
             <Table
               rowKey={(record) => record.ID2}
@@ -472,7 +472,7 @@ export function OverviewTable({
             </h3>
             <p>
               {" "}
-              Backend {t("minimumLevel")}{" "}
+              {t("overviewTable.backendPrefixWithSpace")}{t("minimumLevel")}{" "}
               {anforderungsFilter?.backendComplexity}
             </p>
             <Table

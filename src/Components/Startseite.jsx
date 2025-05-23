@@ -53,7 +53,7 @@ export default function Startseite() {
         type="primary"
         href="/ErweiterungsoptionenDB.csv"
       >
-        Download
+        {t("startseite.downloadButton")}
       </Button>
     </div>
   );

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Input, AutoComplete } from "antd";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { PlayCircleOutlined } from "@ant-design/icons";
 export function FioriAppDetector() {
+  const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState("");
   const [appProperties, setAppProperties] = useState([]);
   const [dataSource, setDataSource] = useState([]);
@@ -65,7 +67,7 @@ export function FioriAppDetector() {
   return (
     <div style={{ display: "flex", maxWidth: "100%" }}>
       <div style={{ flex: "1", padding: "20px" }}>
-        <h2>App-Name oder App-ID eingeben:</h2>
+        <h2>{t("fioriAppDetector.appNameOrIdInputLabel")}</h2>
         <AutoComplete
           value={searchInput}
           options={appProperties.map((app) => ({
@@ -75,7 +77,7 @@ export function FioriAppDetector() {
           style={{ width: "80%" }}
           onSelect={onSelect}
           onSearch={handleSearch}
-          placeholder="App-Name oder App-ID"
+          placeholder={t("fioriAppDetector.appNameOrIdPlaceholder")}
         />
         <Button
           type="primary"
@@ -89,13 +91,13 @@ export function FioriAppDetector() {
         <div style={{ flex: "1", padding: "20px" }}>
           {appProperties.length > 0 && (
             <>
-              <h2>Gefundene Apps</h2>
+              <h2>{t("fioriAppDetector.gefundeneAppsTitle")}</h2>
               <div>
                 <p>
-                  <strong>fioriId:</strong> {appProperties[0]?.fioriId}
+                  <strong>{t("fioriAppDetector.fioriIdLabel")}</strong> {appProperties[0]?.fioriId}
                 </p>
                 <p>
-                  <strong>AppName:</strong> {appProperties[0]?.appName}
+                  <strong>{t("fioriAppDetector.appNameLabel")}</strong> {appProperties[0]?.appName}
                 </p>
                 {/* Weitere App-Eigenschaften hier anzeigen */}
               </div>
